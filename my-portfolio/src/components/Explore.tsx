@@ -4,7 +4,7 @@ import './Explore.css'
 
 export function Explore() {
   return (
-    <section className="explore-hero" aria-labelledby="explore-title">
+    <section className="explore-hero" id="explore" aria-labelledby="explore-title">
       <div className="explore-copy">
         <p className="hero-eyebrow"><span className="hero-eyebrow-light" />UX DESIGNER &amp; ENGINEER CURRENTLY AT HYDRO ONE</p>
 
@@ -24,7 +24,7 @@ export function Explore() {
           <a className="hero-button hero-button-secondary" href="#about">About me <Icon name="arrow-right" /></a>
         </div>
 
-        <a className="hero-scroll" href="#below-hero" aria-label="Scroll down">
+        <a className="hero-scroll" href="#about" aria-label="Scroll to About section">
           <span className="hero-scroll-mouse"><span /></span>
           <span>SCROLL DOWN</span>
         </a>
@@ -43,7 +43,6 @@ export function Explore() {
         <span className="portrait-sticker portrait-sticker-seo">SEO</span>
         <span className="portrait-sticker portrait-sticker-html">HTML</span>
       </div>
-      <span id="below-hero" className="hero-scroll-target" aria-hidden="true" />
     </section>
   )
 }
