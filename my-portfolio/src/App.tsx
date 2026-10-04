@@ -15,7 +15,7 @@ function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
-    const sectionIds = ['explore', 'about', 'projects', 'experience', 'stack', 'resume']
+    const sectionIds = ['explore', 'about', 'projects', 'experience', 'stack']
     const requestedSection = window.location.pathname === '/experience'
       ? 'experience'
       : window.location.hash.slice(1)

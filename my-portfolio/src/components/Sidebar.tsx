@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import type { IconType } from 'react-icons'
+import { FaFacebookF, FaGithub, FaInstagram, FaLinkedinIn } from 'react-icons/fa'
 import { Icon, type IconName } from './Icons'
 
 const navItems: { id: string; label: string; icon: IconName }[] = [
@@ -7,7 +9,13 @@ const navItems: { id: string; label: string; icon: IconName }[] = [
   { id: 'projects', label: 'Projects', icon: 'code' },
   { id: 'experience', label: 'Experience', icon: 'briefcase' },
   { id: 'stack', label: 'Stack', icon: 'layers' },
-  { id: 'resume', label: 'Resume', icon: 'file' },
+]
+
+const socialLinks: { label: string; icon: IconType; url: string }[] = [
+  { label: 'LinkedIn', icon: FaLinkedinIn, url: 'https://www.linkedin.com/in/sydney-santos-471a0b301/' },
+  { label: 'Facebook', icon: FaFacebookF, url: 'https://www.facebook.com/sydney.santos.7773/' },
+  { label: 'Instagram', icon: FaInstagram, url: 'https://www.instagram.com/jst.sydd/' },
+  { label: 'GitHub', icon: FaGithub, url: 'https://github.com/Syddevv' },
 ]
 
 type SidebarProps = {
@@ -57,7 +65,19 @@ export function Sidebar({ activePage, onNavigate, darkMode, onToggleTheme, mobil
             {visibleItems.length === 0 && <span className="nav-empty">NO MATCHES FOUND</span>}
           </div>
         </nav>
-        <div className="sidebar-contact"><a className="contact-link" href="#contact" onClick={() => onNavigate('contact')}><Icon name="mail" /><span>Contact</span><span className="contact-tag">GET IN TOUCH</span></a></div>
+        <section className="sidebar-connect" aria-labelledby="connect-heading">
+          <p className="sidebar-kicker" id="connect-heading">// CONNECT</p>
+          <div className="connect-list">
+            <a className="connect-link connect-contact-link" href="/#contact" onClick={(event) => { event.preventDefault(); onNavigate('contact') }}>
+              <Icon name="mail" className="connect-icon" /><span>Contact</span><span className="connect-contact-tag">GET IN TOUCH</span>
+            </a>
+            {socialLinks.map(({ label, icon: SocialIcon, url }) => (
+              <a className="connect-link" href={url} target="_blank" rel="noopener noreferrer" key={label}>
+                <SocialIcon className="connect-icon" aria-hidden="true" /><span>{label}</span><Icon name="arrow-up-right" className="connect-arrow" />
+              </a>
+            ))}
+          </div>
+        </section>
       </div>
       <div className="sidebar-footer">
         {searchOpen && <div className="sidebar-search-box"><Icon name="search" /><input ref={searchRef} aria-label="Search navigation" placeholder="Search navigation" value={query} onChange={(event) => setQuery(event.target.value)} onKeyDown={(event) => { if (event.key === 'Escape') { setSearchOpen(false); setQuery('') } }} /><button onClick={() => { setSearchOpen(false); setQuery('') }} aria-label="Close search"><Icon name="close" /></button></div>}
