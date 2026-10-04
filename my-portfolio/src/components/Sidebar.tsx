@@ -5,6 +5,7 @@ const navItems: { id: string; label: string; icon: IconName }[] = [
   { id: 'explore', label: 'Explore', icon: 'terminal' },
   { id: 'about', label: 'About', icon: 'user' },
   { id: 'projects', label: 'Projects', icon: 'code' },
+  { id: 'experience', label: 'Experience', icon: 'briefcase' },
   { id: 'stack', label: 'Stack', icon: 'layers' },
   { id: 'resume', label: 'Resume', icon: 'file' },
 ]
@@ -50,7 +51,7 @@ export function Sidebar({ activePage, onNavigate, darkMode, onToggleTheme, mobil
         <nav className="sidebar-nav" aria-label="Portfolio">
           <p className="sidebar-kicker">// NAVIGATION</p>
           <div className="nav-list">
-            {visibleItems.map((item) => <a key={item.id} className={`nav-link${activePage === item.id ? ' nav-link--active' : ''}`} href={`#${item.id}`} aria-current={activePage === item.id ? 'page' : undefined} onClick={() => onNavigate(item.id)}>
+            {visibleItems.map((item) => <a key={item.id} className={`nav-link${activePage === item.id ? ' nav-link--active' : ''}`} href={`/#${item.id}`} aria-current={activePage === item.id ? 'page' : undefined} onClick={(event) => { event.preventDefault(); onNavigate(item.id) }}>
               <span className="nav-number">{String(navItems.indexOf(item) + 1).padStart(2, '0')}</span><Icon name={item.icon} className="nav-icon" /><span>{item.label}</span>
             </a>)}
             {visibleItems.length === 0 && <span className="nav-empty">NO MATCHES FOUND</span>}
