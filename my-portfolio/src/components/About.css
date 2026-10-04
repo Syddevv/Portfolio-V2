@@ -43,10 +43,101 @@
 .about-inner {
   padding-block: clamp(54px, 5vw, 90px) clamp(80px, 8vw, 150px);
 }
-.about-kicker {
-  margin: 0 0 clamp(20px, 1.5vw, 30px);
-  font: 700 clamp(11px, .78vw, 15px)/1 var(--font-mono);
-  letter-spacing: .18em;
+.about-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, .85fr);
+  margin: 0 9px clamp(64px, 6vw, 110px) 0;
+  border: 3px solid #000;
+  background: #fcf8f8;
+  box-shadow: 9px 9px 0 #000;
+  color: #111;
+}
+.about-intro-copy { min-width: 0; padding: clamp(24px, 2.7vw, 50px); }
+.about-intro-kicker {
+  margin: 0 0 10px;
+  color: #70634a;
+  font: 700 12px/1.2 var(--font-mono);
+  letter-spacing: .1em;
+}
+.about-intro-copy h2 {
+  margin: 0 0 22px;
+  font: 700 clamp(30px, 2.7vw, 48px)/1.05 var(--font-sans);
+  letter-spacing: -.05em;
+}
+.about-intro-copy > p:not(.about-intro-kicker) {
+  max-width: 62ch;
+  margin: 0 0 16px;
+  font-size: clamp(15px, .95vw, 18px);
+  line-height: 1.65;
+}
+.about-intro-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 48px;
+  margin-top: 10px;
+  padding: 12px 18px;
+  border: 3px solid #000;
+  background: #ffe600;
+  box-shadow: 4px 4px 0 #000;
+  font: 700 clamp(13px, .85vw, 16px)/1.2 var(--font-sans);
+  transition: translate .12s steps(2, end), box-shadow .12s steps(2, end);
+}
+.about-intro-action:hover { translate: 2px 2px; box-shadow: 2px 2px 0 #000; }
+.about-intro-action:focus-visible { outline: 3px solid #00f0ff; outline-offset: 5px; }
+.about-system-panel {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  padding: clamp(24px, 2.3vw, 44px);
+  border-left: 3px solid #000;
+  background: #eae7cc;
+}
+.about-system-art { position: relative; width: 100%; max-width: 440px; padding-block: 54px; }
+.about-system-window { padding: 12px; border: 3px solid #000; background: #fff; box-shadow: 7px 7px 0 #000; }
+.about-system-screen { padding: 12px; border: 2px solid #000; background: #e8e6e3; }
+.about-system-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #777;
+  font: 700 clamp(9px, .7vw, 12px)/1 var(--font-mono);
+}
+.about-system-title > svg { margin-left: auto; width: 16px; height: 16px; }
+.about-system-light { width: 8px; height: 8px; flex: 0 0 8px; border: 1px solid #000; background: #ff5b83; }
+.about-system-code { display: flex; flex-direction: column; gap: 11px; padding-block: 20px; }
+.about-code-line { display: block; width: 66%; height: 7px; background: #bcbba9; }
+.about-code-line--yellow { width: 80%; background: #ffe600; }
+.about-code-line--short { width: 50%; }
+.about-code-line--lime { width: 72%; background: #ccff00; }
+.about-code-line--indent { width: 44%; margin-left: 8%; }
+.about-code-line--cyan { width: 100%; background: #00e7ed; }
+.about-system-status { display: flex; align-items: center; gap: 7px; font: 700 10px/1 var(--font-mono); }
+.about-system-status svg { width: 15px; height: 15px; }
+.about-system-keyboard { display: grid; justify-items: center; gap: 8px; margin-top: 10px; padding: 8px; border: 2px solid #000; background: #ffe600; }
+.about-system-keyboard > div { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; width: 100%; }
+.about-system-keyboard > div > span { height: 7px; background: #111; }
+.about-system-spacebar { width: 24%; height: 8px; border: 1px solid #000; background: #fff; }
+.about-system-tag { position: absolute; padding: 5px 8px; border: 2px solid #000; box-shadow: 3px 3px 0 #000; background: #fff; font: 700 clamp(10px, .7vw, 13px)/1.2 var(--font-mono); }
+.about-system-tag--react { top: 8px; left: 0; background: #ffe600; rotate: -3deg; }
+.about-system-tag--typescript { top: 7px; right: 0; background: #ccff00; rotate: 3deg; }
+.about-system-tag--node { bottom: 6px; left: 0; rotate: -3deg; }
+.about-system-tag--next { bottom: 6px; right: 0; background: #ffe600; rotate: 3deg; }
+@media (max-width: 1100px) {
+  .about-intro { grid-template-columns: minmax(0, 1fr); }
+  .about-system-panel { border-left: 0; border-top: 3px solid #000; padding: 32px; }
+}
+@media (max-width: 420px) {
+  .about-intro-copy { padding: 22px; }
+  .about-system-panel { padding: 24px 18px; }
+  .about-system-window { padding: 8px; }
+  .about-system-screen { padding: 9px; }
+  .about-system-tag { font-size: 10px; padding-inline: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-intro-action { transition: none; }
 }
 .about-heading {
   margin: 0 0 clamp(32px, 2vw, 42px);

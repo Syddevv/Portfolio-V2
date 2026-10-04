@@ -55,7 +55,43 @@ export function About() {
       </div>
 
       <div className="about-inner page-container">
-        <p className="about-kicker">01 / WHAT I DO</p>
+        <div className="about-intro">
+          <div className="about-intro-copy">
+            <p className="about-intro-kicker">ABOUT ME</p>
+            <h2>It’s nice to meet you</h2>
+            <p>Hi, I’m Sydney, a full-stack web developer. I build modern web applications from frontend to backend, turning ideas into responsive, reliable, and practical digital solutions.</p>
+            <p>I turn ideas and designs into responsive, accessible, and interactive user experiences with React and modern CSS.</p>
+            <p>I build practical software solutions designed around real-world needs, workflows, and everyday challenges.</p>
+            <a className="about-intro-action" href="#projects">Explore my projects <Icon name="arrow-right" /></a>
+          </div>
+
+          <div className="about-system-panel">
+            <div className="about-system-art" role="img" aria-label="Developer workstation illustration with a FULL_STACK.TS code editor and React, TypeScript, Node.js, and Next.js labels">
+              <span className="about-system-tag about-system-tag--react">REACT</span>
+              <span className="about-system-tag about-system-tag--typescript">TYPESCRIPT</span>
+              <div className="about-system-window">
+                <div className="about-system-screen">
+                  <div className="about-system-title"><span className="about-system-light" /><span>FULL_STACK.TS</span><Icon name="code" /></div>
+                  <div className="about-system-code" aria-hidden="true">
+                    <span className="about-code-line about-code-line--yellow" />
+                    <span className="about-code-line about-code-line--short" />
+                    <span className="about-code-line about-code-line--lime" />
+                    <span className="about-code-line about-code-line--indent" />
+                    <span className="about-code-line about-code-line--cyan" />
+                  </div>
+                  <div className="about-system-status"><Icon name="terminal" /><span>SYDNEY.DEV</span></div>
+                </div>
+                <div className="about-system-keyboard" aria-hidden="true">
+                  <div>{Array.from({ length: 8 }, (_, index) => <span key={index} />)}</div>
+                  <span className="about-system-spacebar" />
+                </div>
+              </div>
+              <span className="about-system-tag about-system-tag--node">NODE.JS</span>
+              <span className="about-system-tag about-system-tag--next">NEXT.JS</span>
+            </div>
+          </div>
+        </div>
+
         <h2 className="about-heading" id="about-title">
           <span>I build things that</span>
           <span>solve real problems.</span>
