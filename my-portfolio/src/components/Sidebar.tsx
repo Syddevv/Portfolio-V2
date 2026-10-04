@@ -43,7 +43,7 @@ export function Sidebar({ activePage, onNavigate, darkMode, onToggleTheme, mobil
     <aside className={`sidebar${mobileOpen ? ' sidebar--open' : ''}`} aria-label="Main navigation">
       <div className="sidebar-main">
         <div className="brand-card">
-          <div className="brand-mark" aria-hidden="true"><span>SS</span><i /></div>
+          <div className="brand-mark" aria-hidden="true"><i /></div>
           <div className="brand-copy"><strong>SYDNEY SANTOS</strong><span>FULL-STACK DEVELOPER</span></div>
           <button className="sidebar-close" onClick={onCloseMobile} aria-label="Close navigation"><Icon name="close" /></button>
         </div>

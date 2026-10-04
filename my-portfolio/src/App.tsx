@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Sidebar } from './components/Sidebar'
 import { TopBar } from './components/TopBar'
+import { Explore } from './components/Explore'
 
 function App() {
   const [activePage, setActivePage] = useState('explore')
@@ -19,7 +20,9 @@ function App() {
       />
       <div className="workspace">
         <TopBar onOpenMenu={() => setMobileMenuOpen(true)} />
-        <main className="workspace-canvas" id="explore" aria-label="Portfolio content" />
+        <main className="workspace-canvas" id="explore" aria-label="Portfolio content">
+          <Explore />
+        </main>
       </div>
     </div>
   )

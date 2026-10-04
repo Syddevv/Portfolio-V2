@@ -22,8 +22,9 @@ a { color: inherit; text-decoration: none; }
 .sidebar { width: 230px; min-width: 230px; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; padding: 8px 16px 4px 3px; color: #fcf8f8; background: #2e2e2e; border-right: 6px solid #070707; box-shadow: inset -2px 0 #696969; z-index: 10; }
 .sidebar-main { min-width: 0; }
 .brand-card { position: relative; height: 56px; display: flex; align-items: center; gap: 7px; padding: 5px 6px; background: #1c1c1c; border: 2px solid #b7b39f; box-shadow: 3px 3px 0 #090909; white-space: nowrap; }
-.brand-mark { width: 41px; height: 41px; flex: 0 0 41px; border: 1.5px solid #ffe600; border-radius: 12px; background-color: #111; background-image: url('./assets/sidebar-reference.png'); background-size: 2244% 1810%; background-position: 1.14% 2.14%; background-repeat: no-repeat; }
-.brand-mark span, .brand-mark i { display: none; }
+.brand-mark { position: relative; width: 41px; height: 41px; flex: 0 0 41px; overflow: hidden; border: 2px solid #000; outline: 2px solid #ffe600; border-radius: 8px; background: #111; box-shadow: 3px 3px 0 #000; }
+.brand-mark::before { content: ''; position: absolute; inset: 0; background: url('./assets/syd-avatar.jpg') center 16% / 180% auto no-repeat; }
+.brand-mark i { position: absolute; right: -1px; bottom: -1px; z-index: 1; width: 11px; height: 11px; border: 1px solid #000; border-radius: 50%; background: #ccff00; }
 .brand-copy { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .brand-copy strong { font-size: 15px; line-height: 1; letter-spacing: -.8px; font-weight: 700; }
 .brand-copy span { font-family: var(--font-mono); font-size: 8px; line-height: 1; font-weight: 700; color: #ccff00; letter-spacing: -.35px; }
@@ -92,6 +93,7 @@ a { color: inherit; text-decoration: none; }
   .sidebar { width: clamp(238px, calc(147px + 9vw), 320px); min-width: clamp(238px, calc(147px + 9vw), 320px); padding: clamp(9px, .7vw, 14px) clamp(16px, 1.15vw, 22px) 9px clamp(4px, .45vw, 9px); }
   .brand-card { height: clamp(58px, calc(31px + 2.7vw), 82px); gap: clamp(8px, .65vw, 12px); padding: 7px clamp(7px, .65vw, 12px); border-width: 2px; }
   .brand-mark { width: clamp(43px, calc(23px + 2vw), 60px); height: clamp(43px, calc(23px + 2vw), 60px); flex-basis: clamp(43px, calc(23px + 2vw), 60px); }
+  .brand-mark i { width: clamp(11px, .8vw, 15px); height: clamp(11px, .8vw, 15px); }
   .brand-copy { gap: clamp(4px, .4vw, 7px); }
   .brand-copy strong { font-size: clamp(16px, calc(9.5px + .6vw), 21px); }
   .brand-copy span { font-size: clamp(9px, calc(3.5px + .4vw), 11px); }
