@@ -1,6 +1,6 @@
 import type { ReactNode, SVGProps } from 'react'
 
-export type IconName = 'terminal' | 'user' | 'code' | 'layers' | 'file' | 'mail' | 'search' | 'theme' | 'clock' | 'share' | 'menu' | 'close' | 'folder' | 'arrow-right' | 'arrow-up-right' | 'briefcase' | 'spark' | 'lock'
+export type IconName = 'terminal' | 'user' | 'code' | 'layers' | 'file' | 'mail' | 'search' | 'theme' | 'clock' | 'share' | 'menu' | 'close' | 'folder' | 'arrow-right' | 'arrow-up-right' | 'briefcase' | 'spark' | 'lock' | 'robot' | 'reset' | 'send'
 
 type IconProps = SVGProps<SVGSVGElement> & { name: IconName }
 
@@ -24,6 +24,9 @@ export function Icon({ name, ...props }: IconProps) {
     briefcase: <><rect x="2.5" y="7" width="19" height="14" rx="1" /><path d="M8 7V4.5A1.5 1.5 0 0 1 9.5 3h5A1.5 1.5 0 0 1 16 4.5V7M2.5 13l9.5 3 9.5-3M10 14.5v3h4v-3" /></>,
     spark: <path d="M12 1.5v21M1.5 12h21M4.5 4.5l15 15M19.5 4.5l-15 15" />,
     lock: <><rect x="4" y="10" width="16" height="11" rx="1" /><path d="M7 10V7a5 5 0 0 1 10 0v3M12 14v3" /></>,
+    robot: <><path d="M9 7V4h6v3M12 4V2" /><rect x="3" y="7" width="18" height="13" rx="1" /><path d="M7 12h.01M17 12h.01M8 16h8M1 11v5M23 11v5" /></>,
+    reset: <><path d="M4 4v6h6" /><path d="M5.3 9.2A7.5 7.5 0 1 1 5 15" /></>,
+    send: <><path d="m3 4 18 8-18 8 4-8-4-8Z" /><path d="M7 12h14" /></>,
   }
 
   return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="square" strokeLinejoin="miter" aria-hidden="true" {...props}>{paths[name]}</svg>

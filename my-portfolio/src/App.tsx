@@ -8,6 +8,7 @@ import { Stack } from './components/Stack'
 import { Experience } from './components/Experience'
 import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
+import { PortfolioAssistant } from './components/assistant/PortfolioAssistant'
 
 function App() {
   const [activePage, setActivePage] = useState(() => window.location.pathname === '/experience'
@@ -90,6 +91,7 @@ function App() {
           <Footer onNavigate={navigate} />
         </main>
       </div>
+      <PortfolioAssistant />
     </div>
   )
 }
