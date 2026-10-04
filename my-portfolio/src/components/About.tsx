@@ -54,7 +54,7 @@ export function About() {
         </div>
       </div>
 
-      <div className="about-inner">
+      <div className="about-inner page-container">
         <p className="about-kicker">01 / WHAT I DO</p>
         <h2 className="about-heading" id="about-title">
           <span>I build things that</span>

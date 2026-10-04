@@ -4,24 +4,24 @@ import './Explore.css'
 
 export function Explore() {
   return (
-    <section className="explore-hero" id="explore" aria-labelledby="explore-title">
+    <section className="explore-hero page-container" id="explore" aria-labelledby="explore-title">
       <div className="explore-copy">
-        <p className="hero-eyebrow"><span className="hero-eyebrow-light" />UX DESIGNER &amp; ENGINEER CURRENTLY AT HYDRO ONE</p>
+        <p className="hero-eyebrow"><span className="hero-eyebrow-light" />FULL-STACK WEB DEVELOPER</p>
 
-        <h1 className="hero-headline" id="explore-title">
-          <span>Crafting</span>
-          <span className="hero-headline-outline">memorable</span>
+        <h1 className="hero-headline" id="explore-title" aria-label="Building scalable digital solutions.">
+          <span>Building</span>
+          <span className="hero-headline-outline">scalable</span>
           <span>digital</span>
-          <span>experiences<span className="hero-headline-period" aria-hidden="true" /></span>
+          <span>solutions<span className="hero-headline-period" aria-hidden="true" /></span>
         </h1>
 
         <p className="hero-description">
-          I blend creativity and user-first problem solving to design interfaces that don’t just look great but feel meaningful, connecting users to products in ways that truly matter.
+          I build modern web applications from frontend to backend, turning ideas into responsive, reliable, and practical digital solutions.
         </p>
 
         <div className="hero-actions">
-          <a className="hero-button hero-button-primary" href="#projects">My projects <Icon name="folder" /></a>
-          <a className="hero-button hero-button-secondary" href="#about">About me <Icon name="arrow-right" /></a>
+          <button className="hero-button hero-button-primary" type="button" disabled title="Projects section is coming soon">My projects <Icon name="folder" /></button>
+          <button className="hero-button hero-button-secondary" type="button" disabled title="Resume is not available yet">View resume <Icon name="arrow-right" /></button>
         </div>
 
         <a className="hero-scroll" href="#about" aria-label="Scroll to About section">

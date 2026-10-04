@@ -41,10 +41,7 @@
 }
 
 .about-inner {
-  width: 100%;
-  max-width: 1700px;
-  margin-inline: auto;
-  padding: clamp(54px, 5vw, 90px) clamp(26px, 4.2vw, 84px) clamp(80px, 8vw, 150px);
+  padding-block: clamp(54px, 5vw, 90px) clamp(80px, 8vw, 150px);
 }
 .about-kicker {
   margin: 0 0 clamp(20px, 1.5vw, 30px);
@@ -67,6 +64,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(18px, 1.5vw, 28px);
+  padding-inline-end: 9px;
 }
 .about-card {
   display: flex;
@@ -141,7 +139,7 @@
   .about-section { scroll-margin-top: 64px; }
 }
 @media (max-width: 650px) {
-  .about-inner { padding: 60px clamp(20px, 5vw, 32px) 96px; }
+  .about-inner { padding-block: 60px 96px; }
   .about-heading { font-size: clamp(47px, 9vw, 68px); line-height: .94; margin-bottom: 42px; }
   .about-grid { grid-template-columns: 1fr; gap: 22px; }
   .about-card, .about-card:last-child { grid-column: auto; min-height: 365px; }
