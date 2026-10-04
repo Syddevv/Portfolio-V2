@@ -23,7 +23,7 @@ export function TopBar({ onOpenMenu }: TopBarProps) {
 
   return <header className="topbar">
     <button className="mobile-menu-button" onClick={onOpenMenu} aria-label="Open navigation"><Icon name="menu" /></button>
-    <div className="system-identity"><span className="system-light" /><span>SYDNEY.DEV // SYSTEM<br />STATUS: ONLINE</span></div>
+    <div className="system-identity"><span className="system-light" /><span>SYDNEY.DEV <span className="system-extra">// SYSTEM</span><br />STATUS: ONLINE</span></div>
     <div className="topbar-actions">
       <span className="availability">STATUS: AVAILABLE<br />FOR HIRE</span>
       <span className="telemetry">LATENCY:<br /><strong>12MS</strong></span>
