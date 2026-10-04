@@ -126,6 +126,11 @@
 .experience-certificate:hover { translate: 2px 2px; box-shadow: 2px 2px 0 #000; }
 .experience-certificate:focus-visible { outline: 3px solid #ffe600; outline-offset: 5px; }
 .experience-certificate svg { width: 17px; height: 17px; }
+.experience-certificate--pending {
+  cursor: default;
+  background: #ffe600;
+}
+.experience-certificate--pending:hover { translate: 0; box-shadow: 4px 4px 0 #000; }
 .app-shell--dark .experience-section { color: #fcf8f8; }
 .app-shell--dark .experience-row:not(:last-child)::before { background: #fcf8f8; }
 .app-shell--dark .experience-date { color: #fcf8f8; }

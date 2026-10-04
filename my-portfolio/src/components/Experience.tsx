@@ -63,10 +63,14 @@ export function Experience() {
               <ul className="experience-technologies" aria-label={`${entry.company} technologies`}>
                 {entry.technologies.map((technology) => <li key={technology}>{technology}</li>)}
               </ul>
-              {entry.certificateUrl && (
+              {entry.certificateUrl ? (
                 <a className="experience-certificate" href={entry.certificateUrl} target="_blank" rel="noopener noreferrer">
                   <Icon name="file" />{entry.certificateLabel}<Icon name="arrow-up-right" />
                 </a>
+              ) : (
+                <button className="experience-certificate experience-certificate--pending" type="button" disabled title="Certificate link coming soon">
+                  <Icon name="file" />{entry.certificateLabel}<Icon name="arrow-up-right" />
+                </button>
               )}
             </div>
           </article>
