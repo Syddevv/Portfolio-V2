@@ -53,6 +53,7 @@ a { color: inherit; text-decoration: none; }
 .connect-link:focus-visible { outline: 2px solid #00f0ff; outline-offset: -2px; }
 .connect-contact-link { min-height: 34px; margin-bottom: 5px; padding: 0 6px; border: 3px solid #000; background: #00e7ed; box-shadow: 3px 3px 0 #080808; color: #000; font-family: var(--font-sans); font-size: 12px; font-weight: 700; }
 .connect-contact-link:hover { background: #00f0ff; color: #000; }
+.connect-contact-link--active { background: #ffe600; }
 .connect-contact-tag { margin-left: auto; padding: 3px 5px 2px; background: #0b1515; color: #00f0ff; font: 700 9px/1 var(--font-mono); white-space: nowrap; }
 .sidebar-footer { position: relative; padding-top: 12px; border-top: 2px solid #a9a592; }
 .sidebar-footer-actions { display: flex; align-items: center; justify-content: space-between; }

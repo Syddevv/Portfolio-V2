@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import type { IconType } from 'react-icons'
-import { FaFacebookF, FaGithub, FaInstagram, FaLinkedinIn } from 'react-icons/fa'
 import { Icon, type IconName } from './Icons'
+import { socialLinks } from '../data/socialLinks'
 
 const navItems: { id: string; label: string; icon: IconName }[] = [
   { id: 'explore', label: 'Explore', icon: 'terminal' },
@@ -9,13 +8,6 @@ const navItems: { id: string; label: string; icon: IconName }[] = [
   { id: 'projects', label: 'Projects', icon: 'code' },
   { id: 'experience', label: 'Experience', icon: 'briefcase' },
   { id: 'stack', label: 'Stack', icon: 'layers' },
-]
-
-const socialLinks: { label: string; icon: IconType; url: string }[] = [
-  { label: 'LinkedIn', icon: FaLinkedinIn, url: 'https://www.linkedin.com/in/sydney-santos-471a0b301/' },
-  { label: 'Facebook', icon: FaFacebookF, url: 'https://www.facebook.com/sydney.santos.7773/' },
-  { label: 'Instagram', icon: FaInstagram, url: 'https://www.instagram.com/jst.sydd/' },
-  { label: 'GitHub', icon: FaGithub, url: 'https://github.com/Syddevv' },
 ]
 
 type SidebarProps = {
@@ -68,7 +60,7 @@ export function Sidebar({ activePage, onNavigate, darkMode, onToggleTheme, mobil
         <section className="sidebar-connect" aria-labelledby="connect-heading">
           <p className="sidebar-kicker" id="connect-heading">// CONNECT</p>
           <div className="connect-list">
-            <a className="connect-link connect-contact-link" href="/#contact" onClick={(event) => { event.preventDefault(); onNavigate('contact') }}>
+            <a className={`connect-link connect-contact-link${activePage === 'contact' ? ' connect-contact-link--active' : ''}`} href="/#contact" onClick={(event) => { event.preventDefault(); onNavigate('contact') }}>
               <Icon name="mail" className="connect-icon" /><span>Contact</span><span className="connect-contact-tag">GET IN TOUCH</span>
             </a>
             {socialLinks.map(({ label, icon: SocialIcon, url }) => (

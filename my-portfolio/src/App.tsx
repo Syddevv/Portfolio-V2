@@ -6,6 +6,8 @@ import { About } from './components/About'
 import { Projects } from './components/Projects'
 import { Stack } from './components/Stack'
 import { Experience } from './components/Experience'
+import { Contact } from './components/Contact'
+import { Footer } from './components/Footer'
 
 function App() {
   const [activePage, setActivePage] = useState(() => window.location.pathname === '/experience'
@@ -15,7 +17,7 @@ function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
-    const sectionIds = ['explore', 'about', 'projects', 'experience', 'stack']
+    const sectionIds = ['explore', 'about', 'projects', 'experience', 'stack', 'contact']
     const requestedSection = window.location.pathname === '/experience'
       ? 'experience'
       : window.location.hash.slice(1)
@@ -84,6 +86,8 @@ function App() {
           <Projects />
           <Experience />
           <Stack />
+          <Contact />
+          <Footer onNavigate={navigate} />
         </main>
       </div>
     </div>
