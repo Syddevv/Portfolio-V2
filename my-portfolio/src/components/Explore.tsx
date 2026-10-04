@@ -20,7 +20,7 @@ export function Explore() {
         </p>
 
         <div className="hero-actions">
-          <button className="hero-button hero-button-primary" type="button" disabled title="Projects section is coming soon">My projects <Icon name="folder" /></button>
+          <a className="hero-button hero-button-primary" href="#projects">My projects <Icon name="folder" /></a>
           <button className="hero-button hero-button-secondary" type="button" disabled title="Resume is not available yet">View resume <Icon name="arrow-right" /></button>
         </div>
 

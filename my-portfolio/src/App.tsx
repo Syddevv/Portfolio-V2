@@ -3,6 +3,7 @@ import { Sidebar } from './components/Sidebar'
 import { TopBar } from './components/TopBar'
 import { Explore } from './components/Explore'
 import { About } from './components/About'
+import { Projects } from './components/Projects'
 
 function App() {
   const [activePage, setActivePage] = useState('explore')
@@ -12,7 +13,7 @@ function App() {
   useEffect(() => {
     const syncPageWithHash = () => {
       const page = window.location.hash.slice(1)
-      if (page === 'explore' || page === 'about') setActivePage(page)
+      if (page === 'explore' || page === 'about' || page === 'projects') setActivePage(page)
     }
     window.addEventListener('hashchange', syncPageWithHash)
     syncPageWithHash()
@@ -34,6 +35,7 @@ function App() {
         <main className="workspace-canvas" aria-label="Portfolio content">
           <Explore />
           <About />
+          <Projects />
         </main>
       </div>
     </div>
