@@ -39,11 +39,19 @@ const services: {
   },
 ]
 
+const tickerPhrase = 'BUILD ✳ SHIP ✳ REPEAT ✳ DESIGN ✳'
+
 export function About() {
   return (
     <section className="about-section" id="about" aria-labelledby="about-title">
       <div className="about-ticker" aria-hidden="true">
-        <div>BUILD ✳ SHIP ✳ REPEAT ✳ DESIGN ✳ BUILD ✳ SHIP ✳ REPEAT ✳ DESIGN ✳ BUILD ✳ SHIP ✳ REPEAT ✳</div>
+        <div className="about-ticker-track">
+          {[0, 1].map((group) => (
+            <div className="about-ticker-segment" key={group}>
+              {Array.from({ length: 10 }, (_, index) => <span key={index}>{tickerPhrase}</span>)}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="about-inner">

@@ -14,12 +14,30 @@
   border-bottom: 4px solid #000;
   background: #ffe600;
 }
-.about-ticker > div {
+.about-ticker-track {
+  display: flex;
   width: max-content;
-  padding-inline: 8px;
+  animation: about-ticker-slide 40s linear infinite;
+  will-change: transform;
+}
+.about-ticker-segment {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+}
+.about-ticker-segment span {
+  flex: 0 0 auto;
+  padding-right: 1.1em;
+  width: max-content;
   font: 900 clamp(12px, .85vw, 16px)/1 Arial, Helvetica, sans-serif;
   letter-spacing: .14em;
   white-space: nowrap;
+}
+@keyframes about-ticker-slide {
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-ticker-track { animation: none; }
 }
 
 .about-inner {
