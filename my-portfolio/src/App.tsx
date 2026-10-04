@@ -4,6 +4,7 @@ import { TopBar } from './components/TopBar'
 import { Explore } from './components/Explore'
 import { About } from './components/About'
 import { Projects } from './components/Projects'
+import { Stack } from './components/Stack'
 
 function App() {
   const [activePage, setActivePage] = useState('explore')
@@ -13,7 +14,7 @@ function App() {
   useEffect(() => {
     const syncPageWithHash = () => {
       const page = window.location.hash.slice(1)
-      if (page === 'explore' || page === 'about' || page === 'projects') setActivePage(page)
+      if (page === 'explore' || page === 'about' || page === 'projects' || page === 'stack') setActivePage(page)
     }
     window.addEventListener('hashchange', syncPageWithHash)
     syncPageWithHash()
@@ -36,6 +37,7 @@ function App() {
           <Explore />
           <About />
           <Projects />
+          <Stack />
         </main>
       </div>
     </div>
