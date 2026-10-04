@@ -23,12 +23,14 @@ export function TopBar({ onOpenMenu }: TopBarProps) {
 
   return <header className="topbar">
     <button className="mobile-menu-button" onClick={onOpenMenu} aria-label="Open navigation"><Icon name="menu" /></button>
-    <div className="system-identity"><span className="system-light" /><span>SYDNEY.DEV <span className="system-extra">// SYSTEM</span><br />STATUS: ONLINE</span></div>
+    <div className="system-identity">
+      <span className="system-light" />
+      <span className="system-identity-copy"><strong>SYDNEY.DEV</strong><span>SYSTEM ONLINE</span></span>
+    </div>
     <div className="topbar-actions">
       <span className="availability">STATUS: AVAILABLE<br />FOR HIRE</span>
-      <span className="telemetry">LATENCY:<br /><strong>12MS</strong></span>
-      <span className="telemetry stack-telemetry">STACK:<br /><strong>FULL-STACK</strong></span>
-      <a className="book-call" href="#contact"><Icon name="clock" /><span>Book<br />Call</span></a>
+      <span className="stack-meta">STACK:<strong>FULL-STACK</strong></span>
+      <a className="book-call" href="#contact"><Icon name="clock" /><span>BOOK A CALL</span></a>
       <div className="topbar-popover-anchor"><button className="topbar-icon-button" onClick={() => setTerminalOpen((open) => !open)} aria-label="System information" aria-expanded={terminalOpen}><Icon name="terminal" /></button>{terminalOpen && <div className="system-popover" role="status"><strong>&gt; SYDNEY.DEV</strong><span>STATUS: ONLINE</span><span>STACK: FULL-STACK</span><span>AVAILABLE FOR HIRE</span></div>}</div>
       <button className="topbar-icon-button" onClick={sharePortfolio} aria-label="Share portfolio"><Icon name="share" /></button>
     </div>
