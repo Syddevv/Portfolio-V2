@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react'
 import { Icon } from './Icons'
 import './Projects.css'
 
@@ -141,6 +142,29 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 }
 
 export function Projects() {
+  const [showAll, setShowAll] = useState(false)
+  const toggleRef = useRef<HTMLButtonElement>(null)
+  const visibleProjects = showAll ? projects : projects.slice(0, 4)
+
+  const toggleProjects = () => {
+    if (showAll) {
+      setShowAll(false)
+      requestAnimationFrame(() => {
+        const button = toggleRef.current
+        if (!button) return
+        const { top, bottom } = button.getBoundingClientRect()
+        if (bottom < 90 || top > window.innerHeight - 24) {
+          document.getElementById('projects')?.scrollIntoView({
+            behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+            block: 'start',
+          })
+        }
+      })
+    } else {
+      setShowAll(true)
+    }
+  }
+
   return (
     <section className="projects-section" id="projects" aria-labelledby="projects-title">
       <div className="projects-inner page-container">
@@ -153,8 +177,21 @@ export function Projects() {
             <span className="projects-header-tag">{String(projects.length).padStart(2, '0')} FEATURED PROJECTS</span>
           </div>
 
-          <div className="projects-grid">
-            {projects.map((project, index) => <ProjectCard project={project} index={index} key={project.title} />)}
+          <div className="projects-grid" id="projects-grid">
+            {visibleProjects.map((project, index) => <ProjectCard project={project} index={index} key={project.title} />)}
+          </div>
+
+          <div className="projects-more-row">
+            <button
+              className="projects-more-button"
+              type="button"
+              ref={toggleRef}
+              onClick={toggleProjects}
+              aria-expanded={showAll}
+              aria-controls="projects-grid"
+            >
+              {showAll ? 'SHOW LESS ↑' : 'VIEW MORE PROJECTS ↓'}
+            </button>
           </div>
         </div>
       </div>
