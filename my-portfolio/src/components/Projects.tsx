@@ -1,5 +1,13 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { Icon } from './Icons'
+import certicodeImage from '../assets/Certicode.png'
+import craftMySiteImage from '../assets/CraftMySite.png'
+import eduTrackImage from '../assets/EduTrack.png'
+import eyrieImage from '../assets/Eyrie.png'
+import floodWatchImage from '../assets/FloodwatchPH.png'
+import letemCookImage from '../assets/LetemCook.png'
+import orbitImage from '../assets/Orbit.png'
+import spenSydImage from '../assets/SpenSyd.png'
 import './Projects.css'
 
 type Project = {
@@ -18,6 +26,7 @@ const projects: Project[] = [
   {
     category: 'Web Application / Community Platform',
     title: 'FloodWatch PH',
+    image: { src: floodWatchImage, alt: 'FloodWatch PH flood monitoring platform interface' },
     shortDescription: 'Community-powered flood monitoring and reporting platform.',
     description: 'FloodWatch PH is a public web platform that helps communities monitor flood conditions across the Philippines. Users can view community-submitted flood reports on an interactive map, report new incidents with photos and location data, verify existing reports, check nearby evacuation centers, monitor weather conditions, and access flood-related information through a mobile-friendly interface designed for fast and reliable public use.',
     technologies: ['Next.js', 'TypeScript', 'Prisma', 'Supabase', 'AI-Assisted'],
@@ -27,14 +36,17 @@ const projects: Project[] = [
   {
     category: 'Mobile Application / Personal Finance',
     title: 'Eyrie',
+    image: { src: eyrieImage, alt: 'Eyrie personal finance mobile application interface' },
     shortDescription: 'AI-assisted, offline-first personal finance mobile app.',
     description: 'Eyrie is an offline-first personal finance mobile application for tracking expenses, budgets, savings, and financial activity. It was developed using an AI-assisted workflow with Codex for development and v0 by Vercel for prototyping, while focusing on local storage, secure syncing, and a smooth mobile experience.',
     technologies: ['React Native', 'TypeScript', 'SQLite', 'Supabase', 'AI-Assisted'],
     liveUrl: 'https://apkpure.com/p/com.sydu.eyrie',
+    githubUrl: 'https://github.com/Syddevv/eyrie',
   },
   {
     category: 'Web Application / Academic Management',
     title: 'EduTrack',
+    image: { src: eduTrackImage, alt: 'EduTrack academic management system interface' },
     shortDescription: 'Academic management system for attendance, classes, and reports.',
     description: 'EduTrack is a web-based academic management system that helps teachers and administrators record attendance, manage classes, and generate real-time reports. It provides clear dashboards for monitoring student performance and identifying at-risk students.',
     technologies: ['React', 'TypeScript', 'PHP', 'MySQL'],
@@ -42,6 +54,7 @@ const projects: Project[] = [
   {
     category: 'E-commerce / Full-Stack Web Application',
     title: 'Certicode E-commerce',
+    image: { src: certicodeImage, alt: 'Certicode e-commerce web application interface' },
     shortDescription: 'Full-stack e-commerce web application.',
     description: 'A full-stack e-commerce web application I contributed to during my internship. It features product listings, a shopping cart system, and a responsive interface for online shopping.',
     technologies: ['React', 'Laravel', 'MySQL'],
@@ -49,6 +62,7 @@ const projects: Project[] = [
   {
     category: 'Web Application / Personal Finance',
     title: 'SpenSyd',
+    image: { src: spenSydImage, alt: 'SpenSyd personal finance tracker interface' },
     shortDescription: 'Personal finance tracker with AI integration.',
     description: 'SpenSyd is a modern web application built to help users track their spending and income efficiently, powered by a smart AI assistant.',
     technologies: ['MERN Stack', 'Gemini API', 'Tailwind CSS'],
@@ -58,6 +72,7 @@ const projects: Project[] = [
   {
     category: 'Web Application / Community Platform',
     title: "Let'em Cook",
+    image: { src: letemCookImage, alt: "Let'em Cook community recipe platform interface" },
     shortDescription: 'Community recipe sharing platform.',
     description: "Let'em Cook is an online community platform designed for passionate home cooks to share their culinary creations and discover recipes from other users.",
     technologies: ['MERN Stack'],
@@ -67,6 +82,7 @@ const projects: Project[] = [
   {
     category: 'Web Platform / Marketplace',
     title: 'CraftMySite',
+    image: { src: craftMySiteImage, alt: 'CraftMySite template marketplace interface' },
     shortDescription: 'Template marketplace and custom web services platform.',
     description: 'CraftMySite is a web platform that combines a digital template marketplace with custom web development services, allowing users to explore ready-made website solutions and web services.',
     githubUrl: 'https://github.com/Syddevv/CraftMySite',
@@ -74,6 +90,7 @@ const projects: Project[] = [
   {
     category: 'Web Application / Communication',
     title: 'Orbit',
+    image: { src: orbitImage, alt: 'Orbit anonymous chat application interface' },
     shortDescription: 'Modern anonymous chat application.',
     description: 'Orbit is a modern anonymous chat application designed for spontaneous and anonymous conversations, allowing users to connect and communicate through a simple, focused interface.',
     githubUrl: 'https://github.com/Syddevv/Orbit',
