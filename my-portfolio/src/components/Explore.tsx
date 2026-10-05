@@ -25,8 +25,8 @@ export function Explore() {
         </div>
 
         <a className="hero-scroll" href="#about" aria-label="Scroll to About section">
-          <span className="hero-scroll-mouse"><span /></span>
-          <span>SCROLL DOWN</span>
+          <span className="hero-scroll-mouse"><span className="hero-scroll-wheel" /></span>
+          <span className="hero-scroll-label">SCROLL DOWN</span>
         </a>
       </div>
 
