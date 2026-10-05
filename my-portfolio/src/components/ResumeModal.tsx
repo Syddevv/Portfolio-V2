@@ -60,11 +60,13 @@ export function ResumeModal({ open, onClose, triggerRef }: ResumeModalProps) {
 
     if (event.key !== 'Tab') return
     const focusable = [closeButtonRef.current, downloadButtonRef.current].filter(
-      (element): element is HTMLElement => element !== null,
+      (element): element is HTMLButtonElement | HTMLAnchorElement => element !== null,
     )
     if (focusable.length === 0) return
 
-    const currentIndex = focusable.indexOf(document.activeElement as HTMLElement)
+    const currentIndex = focusable.indexOf(
+      document.activeElement as HTMLButtonElement | HTMLAnchorElement,
+    )
     const nextIndex = event.shiftKey
       ? (currentIndex - 1 + focusable.length) % focusable.length
       : (currentIndex + 1) % focusable.length
