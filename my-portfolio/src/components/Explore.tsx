@@ -39,7 +39,7 @@ export function Explore() {
         </div>
         <span className="portrait-sticker portrait-sticker-css">CSS</span>
         <span className="portrait-sticker portrait-sticker-ux">UX</span>
-        <span className="portrait-sticker portrait-sticker-rgb">RGB</span>
+        <span className="portrait-sticker portrait-sticker-next">NEXT.JS</span>
         <span className="portrait-sticker portrait-sticker-seo">SEO</span>
         <span className="portrait-sticker portrait-sticker-html">HTML</span>
       </div>

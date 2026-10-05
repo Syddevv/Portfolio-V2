@@ -86,26 +86,44 @@
 .hero-scroll-mouse > span { transition: transform var(--motion-fast) steps(2, end); }
 .hero-scroll:hover .hero-scroll-mouse > span { transform: translateY(3px); }
 
-.hero-visual { --portrait-shadow: clamp(8px, .75vw, 14px); position: relative; width: min(calc(100% - var(--portrait-shadow)), clamp(270px, 29.7vw, 570px)); justify-self: end; margin: 22px var(--portrait-shadow) 18px 0; }
+.hero-visual { --portrait-shadow: clamp(8px, .75vw, 14px); position: relative; width: min(calc(100% - var(--portrait-shadow)), clamp(270px, 29.7vw, 570px)); justify-self: end; margin: 22px var(--portrait-shadow) 18px 0; overflow: visible; }
 .portrait-frame { width: 100%; aspect-ratio: .83; padding: clamp(7px, .75vw, 13px); border: 3px solid #000; background: #fff; box-shadow: var(--portrait-shadow) var(--portrait-shadow) 0 #000; }
 .portrait-inner { display: flex; flex-direction: column; width: 100%; height: 100%; border: 2px solid #000; background: #e8e4d9; overflow: hidden; }
-.portrait-inner img { display: block; width: 100%; min-height: 0; flex: 1; object-fit: cover; object-position: center 27%; }
+.portrait-inner img {
+  --portrait-drift-x: 3px;
+  --portrait-drift-y: -5px;
+  display: block;
+  width: 100%;
+  min-height: 0;
+  flex: 1;
+  object-fit: cover;
+  object-position: center 27%;
+  animation: portrait-image-drift 5s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes portrait-image-drift {
+  from { transform: scale(1.015) translate(0, 0); }
+  to { transform: scale(1.025) translate(var(--portrait-drift-x), var(--portrait-drift-y)); }
+}
 .portrait-caption { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: clamp(24px, 2vw, 34px); padding: 0 8px; background: #111; color: #fff; font: 700 clamp(8px, .57vw, 11px)/1 var(--font-mono); white-space: nowrap; }
 .portrait-caption span:last-child { color: #ccff00; }
-.portrait-sticker { position: absolute; z-index: 2; display: grid; place-items: center; min-height: clamp(25px, 2vw, 36px); padding: 3px 9px; border: 2px solid #000; box-shadow: 3px 3px 0 #000; background: #fff; color: #000; font: 700 clamp(11px, .8vw, 15px)/1 var(--font-mono); }
+.portrait-sticker { position: absolute; z-index: 2; display: grid; place-items: center; width: max-content; min-height: clamp(25px, 2vw, 36px); padding: 3px 9px; border: 2px solid #000; box-shadow: 3px 3px 0 #000; background: #fff; color: #000; font: 700 clamp(11px, .8vw, 15px)/1 var(--font-mono); animation: portrait-sticker-float var(--float-duration, 4.2s) var(--float-delay, 0s) ease-in-out infinite alternate; transition: transform var(--motion-fast) var(--ease-mechanical), box-shadow var(--motion-fast) var(--ease-mechanical); }
+.portrait-sticker:hover { transform: translateY(-2px); box-shadow: 4px 4px 0 #000; }
 .portrait-sticker-css { top: -16px; left: 7%; rotate: -8deg; }
 .portrait-sticker-ux { top: 7%; right: -5%; rotate: 11deg; background: #ffe600; }
-.portrait-sticker-rgb { top: 47%; left: -17px; padding: 6px 4px; writing-mode: vertical-rl; background: #00f0ff; }
+.portrait-sticker-next { top: 47%; left: -36px; rotate: -2deg; background: #00f0ff; }
 .portrait-sticker-seo { right: -7%; bottom: 14%; rotate: 7deg; }
 .portrait-sticker-html { bottom: -16px; left: 10%; rotate: -5deg; background: #ccff00; }
 
-@keyframes portrait-sticker-drift {
+@keyframes portrait-sticker-float {
   from { translate: 0 0; }
-  to { translate: 0 -3px; }
+  to { translate: var(--float-x, 2px) var(--float-y, -6px); }
 }
-.portrait-sticker { animation: portrait-sticker-drift 3.8s steps(3, end) infinite alternate; }
-.portrait-sticker-ux, .portrait-sticker-seo { animation-delay: -1.2s; }
-.portrait-sticker-rgb { animation-delay: -2.4s; }
+.portrait-sticker-css { --float-duration: 4.2s; --float-delay: -1.4s; --float-x: 2px; --float-y: -6px; }
+.portrait-sticker-ux { --float-duration: 3.6s; --float-delay: -2.1s; --float-x: -2px; --float-y: -5px; }
+.portrait-sticker-next { --float-duration: 4.8s; --float-delay: -3.2s; --float-x: 3px; --float-y: -7px; }
+.portrait-sticker-seo { --float-duration: 4s; --float-delay: -.9s; --float-x: -2px; --float-y: -6px; }
+.portrait-sticker-html { --float-duration: 3.8s; --float-delay: -2.7s; --float-x: 1px; --float-y: -5px; }
 
 .app-shell--dark .hero-headline { color: #fcf8f8; }
 .app-shell--dark .hero-headline-outline { color: transparent; -webkit-text-stroke-color: #fcf8f8; }
@@ -140,8 +158,13 @@
   .hero-button svg { width: 17px; height: 17px; }
   .hero-scroll { margin-top: 34px; }
   .portrait-caption { font-size: 7px; }
+  .portrait-inner img { --portrait-drift-x: 1px; --portrait-drift-y: -3px; }
+  .portrait-sticker { --float-y: -3px; }
+  .portrait-sticker-next { left: -10px; --float-x: 2px; --float-y: -4px; }
+  .portrait-sticker-ux, .portrait-sticker-seo { right: -3%; }
 }
 @media (prefers-reduced-motion: reduce) {
   .portrait-sticker { animation: none; }
-  .hero-button, .hero-button-secondary svg, .hero-scroll-mouse > span { transition: none; }
+  .portrait-inner img { animation: none; will-change: auto; }
+  .portrait-sticker, .hero-button, .hero-button-secondary svg, .hero-scroll-mouse > span { transition: none; }
 }
