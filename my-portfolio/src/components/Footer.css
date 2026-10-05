@@ -28,9 +28,10 @@
   .footer-navigation { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; }
 }
 @media (max-width: 620px) {
-  .footer-inner { grid-template-columns: 1fr; align-items: start; }
-  .footer-navigation { grid-column: auto; grid-row: auto; justify-content: flex-start; }
-  .footer-socials { justify-content: flex-start; }
+  .footer-inner { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .footer-brand { flex-direction: column; align-items: center; }
+  .footer-navigation { grid-column: auto; grid-row: auto; justify-content: center; }
+  .footer-socials { justify-content: center; }
 }
 @media (prefers-reduced-motion: reduce) {
   .footer-socials a { transition: none; }
