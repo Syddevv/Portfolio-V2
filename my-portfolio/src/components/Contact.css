@@ -44,10 +44,13 @@
   max-width: 240px;
   min-height: 34px;
   font: 700 clamp(12px, .78vw, 14px)/1 var(--font-mono);
+  transition: color var(--motion-fast) steps(2, end);
 }
 .contact-direct-links a:hover { color: #a98700; }
 .contact-direct-links a:focus-visible { outline: 3px solid #00f0ff; outline-offset: 3px; }
 .contact-direct-links svg { width: 17px; height: 17px; }
+.contact-direct-links a svg:last-child { transition: transform var(--motion-fast) steps(2, end); }
+.contact-direct-links a:hover svg:last-child { transform: translate(2px, -2px); }
 .contact-decoration { position: absolute; right: clamp(25px, 2.5vw, 44px); bottom: clamp(25px, 2.5vw, 44px); width: 42px; height: 42px; color: #837f6e; stroke-width: 3; }
 .contact-form-side {
   display: grid;
@@ -81,6 +84,7 @@
   background: #f2efd8;
   color: #111;
   font: 500 clamp(14px, .88vw, 16px)/1.4 var(--font-sans);
+  transition: border-color var(--motion-fast) steps(2, end), box-shadow var(--motion-fast) steps(2, end);
 }
 .contact-field input { min-height: 49px; padding: 10px 12px; }
 .contact-field textarea { min-height: 145px; resize: vertical; padding: 12px; }
@@ -88,7 +92,11 @@
 .contact-field textarea:focus { border-color: #000; box-shadow: 4px 4px 0 #00f0ff; }
 .contact-field input[aria-invalid='true'],
 .contact-field textarea[aria-invalid='true'] { border-color: #d20b3f; }
-.contact-error { margin-top: 6px; color: #c30737; font: 700 10px/1.3 var(--font-mono); }
+.contact-error { margin-top: 6px; color: #c30737; font: 700 10px/1.3 var(--font-mono); animation: contact-error-in var(--motion-base) var(--ease-mechanical) both; }
+@keyframes contact-error-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 .contact-submit {
   display: inline-flex;
   align-items: center;
@@ -101,12 +109,14 @@
   box-shadow: 4px 4px 0 #000;
   color: #000;
   font: 700 clamp(12px, .78vw, 15px)/1 var(--font-mono);
-  transition: translate .12s steps(2, end), box-shadow .12s steps(2, end);
+  transition: transform var(--motion-fast) steps(2, end), box-shadow var(--motion-fast) steps(2, end);
 }
-.contact-submit:hover { translate: 2px 2px; box-shadow: 2px 2px 0 #000; }
+.contact-submit:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #000; }
+.contact-submit:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 #000; }
 .contact-submit:focus-visible { outline: 3px solid #00f0ff; outline-offset: 5px; }
-.contact-submit svg { width: 18px; height: 18px; }
-.contact-form-status { margin: 18px 0 0; padding: 9px; border: 2px solid #000; background: #f3f0e9; font: 700 10px/1.4 var(--font-mono); }
+.contact-submit svg { width: 18px; height: 18px; transition: transform var(--motion-fast) steps(2, end); }
+.contact-submit:hover svg { transform: translateX(3px); }
+.contact-form-status { margin: 18px 0 0; padding: 9px; border: 2px solid #000; background: #f3f0e9; font: 700 10px/1.4 var(--font-mono); animation: contact-error-in var(--motion-base) var(--ease-mechanical) both; }
 .app-shell--dark .contact-section { color: #fcf8f8; }
 .app-shell--dark .contact-shell { color: #111; }
 @media (min-width: 1000px) {
@@ -130,5 +140,6 @@
   .contact-field input { min-height: 48px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .contact-submit { transition: none; }
+  .contact-direct-links a, .contact-direct-links a svg:last-child, .contact-field input, .contact-field textarea, .contact-submit, .contact-submit svg { transition: none; }
+  .contact-error, .contact-form-status { animation: none; }
 }

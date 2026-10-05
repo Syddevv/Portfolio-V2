@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import type { IconType } from 'react-icons'
 import { DiCss3 } from 'react-icons/di'
 import {
@@ -39,9 +40,9 @@ const technologies: Technology[] = [
 
 export function Stack() {
   return (
-    <section className="skills-section" id="stack" aria-labelledby="skills-title">
+    <section className="skills-section" id="stack" aria-labelledby="skills-title" data-reveal>
       <div className="skills-inner page-container">
-        <div className="skills-header">
+        <div className="skills-header" data-reveal-item style={{ '--reveal-index': 0 } as CSSProperties}>
           <div>
             <p className="skills-kicker">TOOLS &amp; TECHNOLOGIES</p>
             <h2 id="skills-title">Skills</h2>
@@ -50,8 +51,8 @@ export function Stack() {
         </div>
 
         <ul className="skills-grid" aria-label="Technologies">
-          {technologies.map(({ name, icon: TechnologyIcon, mobile }) => (
-            <li className="skill-card" key={name}>
+          {technologies.map(({ name, icon: TechnologyIcon, mobile }, index) => (
+            <li className="skill-card" key={name} data-reveal-item style={{ '--reveal-index': (index % 5) + 1 } as CSSProperties}>
               <span className={`skill-card-icon${mobile ? ' skill-card-icon--mobile' : ''}`} aria-hidden="true">
                 <TechnologyIcon />
               </span>

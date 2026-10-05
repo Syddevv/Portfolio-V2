@@ -43,7 +43,7 @@ const experienceEntries: ExperienceEntry[] = [
 
 export function Experience() {
   return (
-    <section className="experience-section page-container" id="experience" aria-labelledby="experience-title">
+    <section className="experience-section page-container" id="experience" aria-labelledby="experience-title" data-reveal>
       <header className="experience-header">
         <p>// EXPERIENCE.LOG</p>
         <h1 id="experience-title"><span>Experience,</span><span>in progress.</span></h1>

@@ -9,6 +9,7 @@ import { Experience } from './components/Experience'
 import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
 import { PortfolioAssistant } from './components/assistant/PortfolioAssistant'
+import { useScrollReveal } from './hooks/useScrollReveal'
 
 function App() {
   const [activePage, setActivePage] = useState(() => window.location.pathname === '/experience'
@@ -16,6 +17,8 @@ function App() {
     : window.location.hash.slice(1) || 'explore')
   const [darkMode, setDarkMode] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  useScrollReveal()
 
   useEffect(() => {
     const sectionIds = ['explore', 'about', 'projects', 'experience', 'stack', 'contact']

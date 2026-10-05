@@ -12,12 +12,13 @@
 .footer-brand p { margin: 0 0 7px; font: 700 clamp(10px, .7vw, 13px)/1.3 var(--font-mono); }
 .footer-brand span:not(.footer-mark) { color: #706b61; font: 600 clamp(9px, .62vw, 11px)/1.4 var(--font-mono); }
 .footer-navigation { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 17px; }
-.footer-navigation a { font: 700 clamp(10px, .7vw, 13px)/1 var(--font-mono); }
+.footer-navigation a { font: 700 clamp(10px, .7vw, 13px)/1 var(--font-mono); transition: color var(--motion-fast) steps(2, end), transform var(--motion-fast) steps(2, end); }
 .footer-navigation a:hover { color: #a98700; text-decoration: underline; text-underline-offset: 4px; }
 .footer-navigation a:focus-visible { outline: 2px solid #00f0ff; outline-offset: 4px; }
 .footer-socials { display: flex; align-items: center; gap: 8px; }
-.footer-socials a { display: grid; place-items: center; width: 34px; height: 34px; border: 2px solid #000; background: #fcf8f8; box-shadow: 3px 3px 0 #000; transition: translate .12s steps(2, end), box-shadow .12s steps(2, end); }
-.footer-socials a:hover { translate: 1px 1px; box-shadow: 2px 2px 0 #000; background: #ffe600; }
+.footer-socials a { display: grid; place-items: center; width: 34px; height: 34px; border: 2px solid #000; background: #fcf8f8; box-shadow: 3px 3px 0 #000; transition: transform var(--motion-fast) steps(2, end), box-shadow var(--motion-fast) steps(2, end), background var(--motion-fast) steps(2, end); }
+.footer-socials a:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 #000; background: #ffe600; }
+.footer-socials a:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #000; }
 .footer-socials a:focus-visible { outline: 3px solid #00f0ff; outline-offset: 4px; }
 .footer-socials svg { width: 16px; height: 16px; }
 .app-shell--dark .portfolio-footer { color: #fcf8f8; }
@@ -34,5 +35,5 @@
   .footer-socials { justify-content: center; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .footer-socials a { transition: none; }
+  .footer-navigation a, .footer-socials a { transition: none; }
 }

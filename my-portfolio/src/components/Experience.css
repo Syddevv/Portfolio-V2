@@ -39,6 +39,7 @@
   width: 3px;
   height: calc(100% + var(--experience-gap));
   background: #111;
+  transform-origin: top;
 }
 .experience-row {
   position: relative;
@@ -121,16 +122,43 @@
   box-shadow: 4px 4px 0 #000;
   font: 700 clamp(11px, .75vw, 14px)/1 var(--font-mono);
   text-transform: uppercase;
-  transition: translate .12s steps(2, end), box-shadow .12s steps(2, end);
+  transition: transform var(--motion-fast) steps(2, end), box-shadow var(--motion-fast) steps(2, end);
 }
-.experience-certificate:hover { translate: 2px 2px; box-shadow: 2px 2px 0 #000; }
+.experience-certificate:not(:disabled):hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #000; }
+.experience-certificate:not(:disabled):active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 #000; }
 .experience-certificate:focus-visible { outline: 3px solid #ffe600; outline-offset: 5px; }
 .experience-certificate svg { width: 17px; height: 17px; }
+.experience-certificate svg:last-child { transition: transform var(--motion-fast) steps(2, end); }
+.experience-certificate:not(:disabled):hover svg:last-child { transform: translate(2px, -2px); }
 .experience-certificate--pending {
   cursor: default;
   background: #ffe600;
 }
-.experience-certificate--pending:hover { translate: 0; box-shadow: 4px 4px 0 #000; }
+.experience-certificate--pending:hover { transform: none; box-shadow: 4px 4px 0 #000; }
+
+@keyframes experience-line-draw {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+@keyframes experience-marker-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes experience-card-in {
+  from { opacity: 0; transform: translateX(18px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+html.motion-ready .experience-section .experience-marker,
+html.motion-ready .experience-section .experience-date,
+html.motion-ready .experience-section .experience-card { opacity: 0; }
+html.motion-ready .experience-section .experience-row:not(:last-child)::before { transform: scaleY(0); }
+html.motion-ready .experience-section.is-revealed .experience-row:not(:last-child)::before { animation: experience-line-draw 300ms 70ms var(--ease-mechanical) both; }
+html.motion-ready .experience-section.is-revealed .experience-row:first-child .experience-marker { animation: experience-marker-in 220ms 80ms var(--ease-mechanical) both; }
+html.motion-ready .experience-section.is-revealed .experience-row:first-child .experience-date { animation: experience-marker-in 220ms 105ms var(--ease-mechanical) both; }
+html.motion-ready .experience-section.is-revealed .experience-row:first-child .experience-card { animation: experience-card-in 300ms 140ms var(--ease-mechanical) both; }
+html.motion-ready .experience-section.is-revealed .experience-row:last-child .experience-marker { animation: experience-marker-in 220ms 250ms var(--ease-mechanical) both; }
+html.motion-ready .experience-section.is-revealed .experience-row:last-child .experience-date { animation: experience-marker-in 220ms 275ms var(--ease-mechanical) both; }
+html.motion-ready .experience-section.is-revealed .experience-row:last-child .experience-card { animation: experience-card-in 300ms 310ms var(--ease-mechanical) both; }
 .app-shell--dark .experience-section { color: #fcf8f8; }
 .app-shell--dark .experience-row:not(:last-child)::before { background: #fcf8f8; }
 .app-shell--dark .experience-date { color: #fcf8f8; }
@@ -163,5 +191,9 @@
   .experience-technologies li { padding-inline: 7px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .experience-certificate { transition: none; }
+  .experience-certificate, .experience-certificate svg:last-child { transition: none; }
+  html.motion-ready .experience-section .experience-marker,
+  html.motion-ready .experience-section .experience-date,
+  html.motion-ready .experience-section .experience-card { opacity: 1; animation: none; }
+  html.motion-ready .experience-section .experience-row:not(:last-child)::before { transform: scaleY(1); animation: none; }
 }

@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { Icon, type IconName } from './Icons'
 import './About.css'
 
@@ -43,7 +44,7 @@ const tickerPhrase = 'BUILD ✳ SHIP ✳ REPEAT ✳ DESIGN ✳'
 
 export function About() {
   return (
-    <section className="about-section" id="about" aria-labelledby="about-title">
+    <section className="about-section" id="about" aria-labelledby="about-title" data-reveal>
       <div className="about-ticker" aria-hidden="true">
         <div className="about-ticker-track">
           {[0, 1].map((group) => (
@@ -55,7 +56,7 @@ export function About() {
       </div>
 
       <div className="about-inner page-container">
-        <div className="about-intro">
+        <div className="about-intro" data-reveal-item style={{ '--reveal-index': 0 } as CSSProperties}>
           <div className="about-intro-copy">
             <p className="about-intro-kicker">ABOUT ME</p>
             <h2>It’s nice to meet you</h2>
@@ -92,14 +93,14 @@ export function About() {
           </div>
         </div>
 
-        <h2 className="about-heading" id="about-title">
+        <h2 className="about-heading" id="about-title" data-reveal-item style={{ '--reveal-index': 1 } as CSSProperties}>
           <span>I build things that</span>
           <span>solve real problems.</span>
         </h2>
 
         <div className="about-grid">
-          {services.map((service) => (
-            <article className={`about-card about-card--${service.color}`} key={service.number}>
+          {services.map((service, index) => (
+            <article className={`about-card about-card--${service.color}`} key={service.number} data-reveal-item style={{ '--reveal-index': index + 2 } as CSSProperties}>
               <span className="about-card-number">{service.number}</span>
               <Icon name={service.icon} className="about-card-icon" />
               <div className="about-card-copy">

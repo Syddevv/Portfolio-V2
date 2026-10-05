@@ -84,10 +84,13 @@
   background: #ffe600;
   box-shadow: 4px 4px 0 #000;
   font: 700 clamp(13px, .85vw, 16px)/1.2 var(--font-sans);
-  transition: translate .12s steps(2, end), box-shadow .12s steps(2, end);
+  transition: transform var(--motion-fast) steps(2, end), box-shadow var(--motion-fast) steps(2, end);
 }
-.about-intro-action:hover { translate: 2px 2px; box-shadow: 2px 2px 0 #000; }
+.about-intro-action:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #000; }
+.about-intro-action:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 #000; }
 .about-intro-action:focus-visible { outline: 3px solid #00f0ff; outline-offset: 5px; }
+.about-intro-action svg { transition: transform var(--motion-fast) steps(2, end); }
+.about-intro-action:hover svg { transform: translateX(3px); }
 .about-system-panel {
   display: grid;
   place-items: center;
@@ -139,7 +142,7 @@
   .about-system-tag { font-size: 10px; padding-inline: 6px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .about-intro-action { transition: none; }
+  .about-intro-action, .about-intro-action svg { transition: none; }
 }
 .about-heading {
   margin: 0 0 clamp(32px, 2vw, 42px);
@@ -168,7 +171,9 @@
   border: 4px solid #000;
   box-shadow: 9px 9px 0 #000;
   color: #000;
+  transition: transform var(--motion-base) steps(2, end), box-shadow var(--motion-base) steps(2, end);
 }
+.about-card:hover { transform: translate(-2px, -2px); box-shadow: 11px 11px 0 #000; }
 .about-card--pink { background: #ff5b83; }
 .about-card--cyan { background: #55d3e5; }
 .about-card--yellow { background: #ffe600; }
@@ -215,7 +220,8 @@
 }
 .about-card-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 .about-card-link:focus-visible { outline: 3px solid #000; outline-offset: 6px; }
-.about-card-link svg { width: clamp(15px, 1vw, 19px); height: clamp(15px, 1vw, 19px); }
+.about-card-link svg { width: clamp(15px, 1vw, 19px); height: clamp(15px, 1vw, 19px); transition: transform var(--motion-fast) steps(2, end); }
+.about-card-link:hover svg { transform: translate(2px, -2px); }
 
 .app-shell--dark .about-section {
   background-color: #181818;
@@ -249,4 +255,7 @@
 @media (max-width: 380px) {
   .about-heading { font-size: 43px; }
   .about-card { padding: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-card, .about-card-link svg { transition: none; }
 }

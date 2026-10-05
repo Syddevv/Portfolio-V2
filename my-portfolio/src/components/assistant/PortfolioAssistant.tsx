@@ -73,9 +73,12 @@ function AssistantComposer({ value, onChange }: AssistantComposerProps) {
 
 export function PortfolioAssistant() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isClosing, setIsClosing] = useState(false)
+  const [hasOpened, setHasOpened] = useState(false)
   const [messageInput, setMessageInput] = useState('')
   const triggerRef = useRef<HTMLButtonElement>(null)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const closeTimerRef = useRef<number | null>(null)
 
   useEffect(() => {
     if (!isOpen) return
@@ -83,17 +86,26 @@ export function PortfolioAssistant() {
 
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return
-      setIsOpen(false)
-      requestAnimationFrame(() => triggerRef.current?.focus())
+      closeButtonRef.current?.click()
     }
 
     window.addEventListener('keydown', handleEscape)
     return () => window.removeEventListener('keydown', handleEscape)
   }, [isOpen])
 
+  useEffect(() => () => {
+    if (closeTimerRef.current !== null) window.clearTimeout(closeTimerRef.current)
+  }, [])
+
   const closeAssistant = () => {
-    setIsOpen(false)
-    requestAnimationFrame(() => triggerRef.current?.focus())
+    if (isClosing) return
+    setIsClosing(true)
+    const delay = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 170
+    closeTimerRef.current = window.setTimeout(() => {
+      setIsOpen(false)
+      setIsClosing(false)
+      requestAnimationFrame(() => triggerRef.current?.focus())
+    }, delay)
   }
 
   const resetAssistant = () => {
@@ -102,14 +114,20 @@ export function PortfolioAssistant() {
 
   if (!isOpen) {
     return (
-      <button className="assistant-trigger" type="button" onClick={() => setIsOpen(true)} ref={triggerRef} aria-haspopup="dialog">
+      <button
+        className={`assistant-trigger${hasOpened ? ' assistant-trigger--returning' : ''}`}
+        type="button"
+        onClick={() => { setHasOpened(true); setIsClosing(false); setIsOpen(true) }}
+        ref={triggerRef}
+        aria-haspopup="dialog"
+      >
         <span><Icon name="robot" /></span>SYD&apos;S ASSISTANT
       </button>
     )
   }
 
   return (
-    <aside className="assistant-panel" role="dialog" aria-modal="false" aria-labelledby="assistant-title">
+    <aside className={`assistant-panel${isClosing ? ' assistant-panel--closing' : ''}`} role="dialog" aria-modal="false" aria-labelledby="assistant-title">
       <AssistantHeader closeButtonRef={closeButtonRef} onReset={resetAssistant} onClose={closeAssistant} />
       <div className="assistant-conversation" aria-live="polite">
         <AssistantMessage message={welcomeMessage} />

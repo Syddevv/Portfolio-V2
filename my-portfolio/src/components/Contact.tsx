@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useState, type CSSProperties, type FormEvent } from 'react'
 import { Icon } from './Icons'
 import { socialLinks } from '../data/socialLinks'
 import './Contact.css'
@@ -34,9 +34,9 @@ export function Contact() {
   }
 
   return (
-    <section className="contact-section page-container" id="contact" aria-labelledby="contact-title">
+    <section className="contact-section page-container" id="contact" aria-labelledby="contact-title" data-reveal>
       <div className="contact-shell">
-        <div className="contact-copy">
+        <div className="contact-copy" data-reveal-item style={{ '--reveal-index': 0 } as CSSProperties}>
           <p className="contact-kicker">CONTACT</p>
           <h2 id="contact-title">Let’s connect.</h2>
           <p>Have a project, opportunity, or idea you’d like to discuss? Whether you’re looking to collaborate, need help building something, or simply want to connect, feel free to send me a message.</p>
@@ -52,7 +52,7 @@ export function Contact() {
           <Icon name="arrow-right" className="contact-decoration" />
         </div>
 
-        <div className="contact-form-side">
+        <div className="contact-form-side" data-reveal-item style={{ '--reveal-index': 1 } as CSSProperties}>
           <form className="contact-form" onSubmit={handleSubmit} noValidate>
             <p className="contact-form-label">// CONTACT FORM</p>
             <div className="contact-fields-row">

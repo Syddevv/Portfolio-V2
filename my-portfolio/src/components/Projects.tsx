@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { Icon } from './Icons'
 import './Projects.css'
 
@@ -97,7 +97,7 @@ function ProjectPreview({ project }: { project: Project }) {
   )
 }
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({ project, index, collapsing = false }: { project: Project; index: number; collapsing?: boolean }) {
   const actions = [
     { label: 'View Project', url: project.projectUrl },
     { label: 'Live Demo', url: project.liveUrl },
@@ -105,7 +105,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   ].filter((action): action is { label: string; url: string } => Boolean(action.url))
 
   return (
-    <article className={`project-card project-card--${index % 2 === 0 ? 'yellow' : 'cyan'}`}>
+    <article
+      className={`project-card project-card--${index % 2 === 0 ? 'yellow' : 'cyan'}${collapsing ? ' project-card--collapsing' : ''}`}
+      data-reveal-item
+      style={{ '--reveal-index': (index % 4) + 1 } as CSSProperties}
+    >
       <div className="project-card-rail">
         <span>{String(index + 1).padStart(2, '0')} <span aria-hidden="true">//</span> {project.category}</span>
         <span className="project-card-rail-mark" aria-hidden="true">PROJECT FILE</span>
@@ -143,33 +147,45 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export function Projects() {
   const [showAll, setShowAll] = useState(false)
+  const [isCollapsing, setIsCollapsing] = useState(false)
   const toggleRef = useRef<HTMLButtonElement>(null)
+  const collapseTimerRef = useRef<number | null>(null)
   const visibleProjects = showAll ? projects : projects.slice(0, 4)
+
+  useEffect(() => () => {
+    if (collapseTimerRef.current !== null) window.clearTimeout(collapseTimerRef.current)
+  }, [])
 
   const toggleProjects = () => {
     if (showAll) {
-      setShowAll(false)
-      requestAnimationFrame(() => {
-        const button = toggleRef.current
-        if (!button) return
-        const { top, bottom } = button.getBoundingClientRect()
-        if (bottom < 90 || top > window.innerHeight - 24) {
-          document.getElementById('projects')?.scrollIntoView({
-            behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-            block: 'start',
-          })
-        }
-      })
+      if (isCollapsing) return
+      setIsCollapsing(true)
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      collapseTimerRef.current = window.setTimeout(() => {
+        setShowAll(false)
+        setIsCollapsing(false)
+        requestAnimationFrame(() => {
+          const button = toggleRef.current
+          if (!button) return
+          const { top, bottom } = button.getBoundingClientRect()
+          if (bottom < 90 || top > window.innerHeight - 24) {
+            document.getElementById('projects')?.scrollIntoView({
+              behavior: reducedMotion ? 'auto' : 'smooth',
+              block: 'start',
+            })
+          }
+        })
+      }, reducedMotion ? 0 : 170)
     } else {
       setShowAll(true)
     }
   }
 
   return (
-    <section className="projects-section" id="projects" aria-labelledby="projects-title">
+    <section className="projects-section" id="projects" aria-labelledby="projects-title" data-reveal>
       <div className="projects-inner page-container">
         <div className="projects-layout">
-          <div className="projects-header">
+          <div className="projects-header" data-reveal-item style={{ '--reveal-index': 0 } as CSSProperties}>
             <div>
               <p className="projects-kicker">// PROJECT ARCHIVE</p>
               <h2 id="projects-title">Selected Projects</h2>
@@ -178,7 +194,7 @@ export function Projects() {
           </div>
 
           <div className="projects-grid" id="projects-grid">
-            {visibleProjects.map((project, index) => <ProjectCard project={project} index={index} key={project.title} />)}
+            {visibleProjects.map((project, index) => <ProjectCard project={project} index={index} collapsing={isCollapsing && index >= 4} key={project.title} />)}
           </div>
 
           <div className="projects-more-row">
@@ -189,8 +205,10 @@ export function Projects() {
               onClick={toggleProjects}
               aria-expanded={showAll}
               aria-controls="projects-grid"
+              disabled={isCollapsing}
             >
-              {showAll ? 'SHOW LESS ↑' : 'VIEW MORE PROJECTS ↓'}
+              <span>{showAll ? 'SHOW LESS' : 'VIEW MORE PROJECTS'}</span>
+              <span className={`projects-more-arrow${showAll ? ' projects-more-arrow--up' : ''}`} aria-hidden="true">{showAll ? '↑' : '↓'}</span>
             </button>
           </div>
         </div>

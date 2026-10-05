@@ -14,11 +14,14 @@
   color: #000;
   font: 700 clamp(11px, .75vw, 14px)/1 var(--font-mono);
   letter-spacing: .035em;
-  transition: translate .14s steps(2, end), box-shadow .14s steps(2, end);
+  transition: transform var(--motion-fast) steps(2, end), box-shadow var(--motion-fast) steps(2, end), background var(--motion-fast) steps(2, end);
 }
 .assistant-trigger > span { display: grid; place-items: center; width: 34px; height: 34px; border: 2px solid #000; background: #00e7ed; color: #000; }
 .assistant-trigger svg { width: 20px; height: 20px; }
-.assistant-trigger:hover { translate: 2px 2px; background: #00f0ff; box-shadow: 4px 4px 0 #000; }
+.assistant-trigger:hover { transform: translate(-2px, -2px); background: #00f0ff; box-shadow: 8px 8px 0 #000; }
+.assistant-trigger:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 #000; }
+.assistant-trigger > span svg { transition: transform var(--motion-fast) steps(2, end); }
+.assistant-trigger:hover > span svg { transform: translateY(-2px); }
 .assistant-trigger:focus-visible { outline: 3px solid #00f0ff; outline-offset: 5px; }
 
 .assistant-panel {
@@ -35,12 +38,22 @@
   background: #f3f0e9;
   box-shadow: 9px 9px 0 #000;
   color: #111;
-  animation: assistant-open .17s steps(3, end);
+  animation: assistant-open 200ms var(--ease-mechanical) both;
 }
 @keyframes assistant-open {
-  from { opacity: 0; translate: 0 12px; }
-  to { opacity: 1; translate: 0 0; }
+  from { opacity: 0; transform: translateY(12px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
+@keyframes assistant-close {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(10px) scale(.985); }
+}
+@keyframes assistant-trigger-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.assistant-panel--closing { pointer-events: none; animation: assistant-close 170ms var(--ease-mechanical) both; }
+html.motion-ready .assistant-trigger:not(.assistant-trigger--returning) { animation: assistant-trigger-in 240ms 210ms var(--ease-mechanical) backwards; }
 .assistant-header {
   display: flex;
   align-items: center;
@@ -57,13 +70,18 @@
 .assistant-brand-copy > span { display: flex; align-items: center; gap: 6px; font: 700 8px/1 var(--font-mono); letter-spacing: .04em; white-space: nowrap; }
 .assistant-brand-copy i { width: 7px; height: 7px; flex: 0 0 7px; border: 1px solid #000; border-radius: 50%; background: #13a538; }
 .assistant-header-actions { display: flex; gap: 7px; margin-left: auto; }
-.assistant-header-actions button { display: grid; place-items: center; width: 34px; height: 34px; padding: 0; border: 2px solid #000; background: #ffe600; color: #000; }
-.assistant-header-actions button:hover { background: #fff; }
+.assistant-header-actions button { display: grid; place-items: center; width: 34px; height: 34px; padding: 0; border: 2px solid #000; background: #ffe600; color: #000; transition: transform var(--motion-fast) steps(2, end), background var(--motion-fast) steps(2, end); }
+.assistant-header-actions button:hover { transform: translate(-1px, -1px); background: #fff; }
+.assistant-header-actions button:active { transform: translate(2px, 2px); }
 .assistant-header-actions button:focus-visible { outline: 3px solid #00f0ff; outline-offset: 2px; }
 .assistant-header-actions svg { width: 18px; height: 18px; }
 
 .assistant-conversation { min-height: 0; flex: 1; overflow-y: auto; padding: clamp(18px, 2vw, 28px); }
-.assistant-message { width: min(100%, 310px); padding: 14px 13px 16px; border: 3px solid #000; background: #fff; box-shadow: 5px 5px 0 #000; }
+.assistant-message { width: min(100%, 310px); padding: 14px 13px 16px; border: 3px solid #000; background: #fff; box-shadow: 5px 5px 0 #000; animation: assistant-message-in var(--motion-base) 80ms var(--ease-mechanical) both; }
+@keyframes assistant-message-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 .assistant-message > span { display: block; font-size: 14px; line-height: 1.43; }
 
 .assistant-composer { padding: 13px 12px 12px; border-top: 4px solid #000; background: #f3f0e9; }
@@ -97,6 +115,6 @@
   .assistant-composer-meta { font-size: 7px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .assistant-panel { animation: none; }
-  .assistant-trigger { transition: none; }
+  .assistant-panel, .assistant-panel--closing, .assistant-message, html.motion-ready .assistant-trigger:not(.assistant-trigger--returning) { animation: none; }
+  .assistant-trigger, .assistant-trigger > span svg, .assistant-header-actions button { transition: none; }
 }
