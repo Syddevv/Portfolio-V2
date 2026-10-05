@@ -26,39 +26,66 @@ function App() {
     const requestedSection = window.location.pathname === '/experience'
       ? 'experience'
       : window.location.hash.slice(1)
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section))
+    let animationFrame: number | null = null
 
     if (window.location.pathname === '/experience') {
       window.history.replaceState({}, '', '/#experience')
+    }
+
+    const updateActiveSection = () => {
+      if (sections.length === 0) return
+
+      const topbarHeight = document.querySelector<HTMLElement>('.topbar')?.offsetHeight ?? 0
+      const usableViewportHeight = Math.max(0, window.innerHeight - topbarHeight)
+      const activationLine = topbarHeight + Math.min(usableViewportHeight * 0.3, 230)
+      const atPageBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 3
+      let nextSectionId = sections[0].id
+
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top > activationLine) break
+        nextSectionId = section.id
+      }
+
+      if (atPageBottom) nextSectionId = sections[sections.length - 1].id
+
+      setActivePage((currentSection) => {
+        if (currentSection === nextSectionId) return currentSection
+        window.history.replaceState({}, '', `/#${nextSectionId}`)
+        return nextSectionId
+      })
+    }
+
+    const scheduleActiveSectionUpdate = () => {
+      if (animationFrame !== null) return
+      animationFrame = window.requestAnimationFrame(() => {
+        animationFrame = null
+        updateActiveSection()
+      })
     }
 
     const scrollToCurrentHash = () => {
       const sectionId = window.location.hash.slice(1)
       if (!sectionId || !sectionIds.includes(sectionId)) return
       setActivePage(sectionId)
-      requestAnimationFrame(() => document.getElementById(sectionId)?.scrollIntoView())
+      requestAnimationFrame(() => {
+        document.getElementById(sectionId)?.scrollIntoView()
+        requestAnimationFrame(updateActiveSection)
+      })
     }
 
-    const sections = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter((section): section is HTMLElement => Boolean(section))
-
-    const observer = new IntersectionObserver((entries) => {
-      const visibleSection = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-
-      if (!visibleSection) return
-      const sectionId = visibleSection.target.id
-      setActivePage(sectionId)
-      window.history.replaceState({}, '', `/#${sectionId}`)
-    }, { rootMargin: '-18% 0px -68% 0px', threshold: [0, 0.01] })
-
-    sections.forEach((section) => observer.observe(section))
+    window.addEventListener('scroll', scheduleActiveSectionUpdate, { passive: true })
+    window.addEventListener('resize', scheduleActiveSectionUpdate)
     window.addEventListener('popstate', scrollToCurrentHash)
     if (requestedSection) scrollToCurrentHash()
+    else scheduleActiveSectionUpdate()
 
     return () => {
-      observer.disconnect()
+      if (animationFrame !== null) window.cancelAnimationFrame(animationFrame)
+      window.removeEventListener('scroll', scheduleActiveSectionUpdate)
+      window.removeEventListener('resize', scheduleActiveSectionUpdate)
       window.removeEventListener('popstate', scrollToCurrentHash)
     }
   }, [])

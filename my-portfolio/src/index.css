@@ -241,7 +241,7 @@ html.motion-ready [data-reveal].is-revealed [data-reveal-item] {
   .sidebar-close:hover { transform: translate(-1px, -1px); background: #00f0ff; }
   .sidebar-close:active { transform: translate(2px, 2px); }
   .sidebar-close svg { width: 18px; height: 18px; }
-  .mobile-menu-button { display: grid; place-items: center; width: 44px; height: 44px; margin-right: 14px; padding: 0; border: 2px solid #000; background: #fcf8f8; box-shadow: 3px 3px #000; transition: transform var(--motion-fast) steps(2, end), box-shadow var(--motion-fast) steps(2, end), background var(--motion-fast) steps(2, end); }
+  .mobile-menu-button { display: grid; place-items: center; width: 44px; height: 44px; margin-right: 14px; padding: 0; border: 2px solid #000; background: #fcf8f8; box-shadow: 3px 3px #000; color: #000; transition: transform var(--motion-fast) steps(2, end), box-shadow var(--motion-fast) steps(2, end), background var(--motion-fast) steps(2, end); }
   .mobile-menu-button:hover { transform: translate(-1px, -1px); background: #ffe600; box-shadow: 4px 4px #000; }
   .mobile-menu-button:active { transform: translate(2px, 2px); box-shadow: 1px 1px #000; }
   .mobile-menu-button:focus-visible, .sidebar-close:focus-visible { outline: 3px solid #00f0ff; outline-offset: 3px; }

@@ -95,6 +95,9 @@ html.motion-ready .assistant-trigger:not(.assistant-trigger--returning) { animat
 .assistant-composer-meta span { max-width: 240px; }
 .assistant-composer-meta strong { flex: 0 0 auto; }
 
+@media (max-width: 850px) {
+  .assistant-trigger, .assistant-panel { z-index: 8; }
+}
 @media (max-width: 600px) {
   .assistant-trigger { right: 14px; bottom: 24px; min-height: 50px; }
   .assistant-panel {
