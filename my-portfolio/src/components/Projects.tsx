@@ -6,6 +6,8 @@ import eduTrackImage from '../assets/EduTrack.png'
 import eyrieImage from '../assets/Eyrie.png'
 import floodWatchImage from '../assets/FloodwatchPH.png'
 import letemCookImage from '../assets/LetemCook.png'
+import loopymImage from '../assets/loopym-mobile-app.png'
+import myCocolifeImage from '../assets/mycocolife-admin.png'
 import orbitImage from '../assets/Orbit.png'
 import spenSydImage from '../assets/SpenSyd.png'
 import './Projects.css'
@@ -14,15 +16,55 @@ type Project = {
   category: string
   title: string
   shortDescription: string
-  description: string
+  description?: string
   technologies?: string[]
   image?: { src: string; alt: string }
+  imageFit?: 'cover' | 'contain'
+  type?: 'Professional Work'
+  engagement?: 'Internship'
+  contributions?: string[]
+  fullTechnologies?: string[]
   projectUrl?: string
   liveUrl?: string
   githubUrl?: string
 }
 
 const projects: Project[] = [
+  {
+    category: 'Production Mobile Application',
+    title: 'Loopym Mobile App',
+    image: { src: loopymImage, alt: 'Loopym mobile application pool dashboard' },
+    imageFit: 'contain',
+    type: 'Professional Work',
+    engagement: 'Internship',
+    shortDescription: 'A production React Native mobile application where I contributed to modernizing the interface, improving native mobile interactions, and shipping features across core application modules.',
+    technologies: ['React Native', 'Expo', 'TypeScript', 'TanStack Query', 'Zustand'],
+    contributions: [
+      'Rebuilt 20+ screens to modern design specifications.',
+      'Integrated native iOS UI and haptic interactions to improve responsiveness and user experience.',
+      'Shipped 40+ reviewed pull requests across 4 core application modules.',
+      'Helped standardize reusable UI patterns across the mobile application.',
+    ],
+    fullTechnologies: ['React Native', 'Expo', 'TypeScript', 'Expo Router', 'TanStack Query', 'Zustand', 'React Hook Form', 'Zod', 'Firebase', 'Maestro', 'EAS', 'GitHub Actions'],
+  },
+  {
+    category: 'Enterprise Administration Platform',
+    title: 'MyCocolife Admin',
+    image: { src: myCocolifeImage, alt: 'MyCocolife Admin payment processing interface' },
+    imageFit: 'contain',
+    type: 'Professional Work',
+    engagement: 'Internship',
+    shortDescription: 'An enterprise administration platform where I contributed to payment processing, automated document generation, notification workflows, and administrative tools.',
+    technologies: ['React', 'TypeScript', 'Material UI', 'Redux Toolkit', 'React Query'],
+    contributions: [
+      'Engineered an automated agent payment and client-side PDF export module using MUI X DataGrid.',
+      'Reduced manual administrative processing involved in invoice generation.',
+      'Implemented recurring notification scheduling.',
+      'Developed role-based approval flows for administrative workflows.',
+      'Contributed to maintaining structured and reusable frontend functionality across the platform.',
+    ],
+    fullTechnologies: ['React', 'TypeScript', 'Vite', 'Material UI', 'MUI X DataGrid', 'Redux Toolkit', 'React Query', 'Formik', 'Yup', 'SASS', 'Vitest', 'GitHub Actions', 'AWS EC2'],
+  },
   {
     category: 'Web Application / Community Platform',
     title: 'FloodWatch PH',
@@ -100,7 +142,7 @@ const projects: Project[] = [
 
 function ProjectPreview({ project }: { project: Project }) {
   return (
-    <div className="project-preview">
+    <div className={`project-preview${project.imageFit === 'contain' ? ' project-preview--contain' : ''}`}>
       {project.image ? (
         <img src={project.image.src} alt={project.image.alt} />
       ) : (
@@ -135,9 +177,15 @@ function ProjectCard({ project, index, collapsing = false }: { project: Project;
       <ProjectPreview project={project} />
 
       <div className="project-card-body">
+        {(project.type || project.engagement) && (
+          <div className="project-labels">
+            {project.type && <span className="project-type">{project.type.toUpperCase()}</span>}
+            {project.engagement && <span className="project-engagement">{project.engagement.toUpperCase()}</span>}
+          </div>
+        )}
         <h3>{project.title}</h3>
         <p className="project-card-summary">{project.shortDescription}</p>
-        <p className="project-card-description">{project.description}</p>
+        {project.description && <p className="project-card-description">{project.description}</p>}
 
         {project.technologies && project.technologies.length > 0 && (
           <ul className="project-tech-list" aria-label="Technologies">
