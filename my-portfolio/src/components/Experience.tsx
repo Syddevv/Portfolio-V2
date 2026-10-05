@@ -1,4 +1,7 @@
+import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Icon } from './Icons'
+import certicodeCertificate from '../assets/Cetificate of Completion.png'
 import './Experience.css'
 
 type ExperienceEntry = {
@@ -8,8 +11,9 @@ type ExperienceEntry = {
   responsibilities: string[]
   technologies: string[]
   color: 'pink' | 'cyan'
-  certificateUrl?: string
+  certificateImage?: string
   certificateLabel: string
+  certificateAlt?: string
 }
 
 const experienceEntries: ExperienceEntry[] = [
@@ -23,7 +27,6 @@ const experienceEntries: ExperienceEntry[] = [
     ],
     technologies: ['React Native', 'React', 'TypeScript', 'PHP', 'Laravel', 'MySQL'],
     color: 'pink',
-    certificateUrl: undefined,
     certificateLabel: 'View Certificate',
   },
   {
@@ -36,12 +39,80 @@ const experienceEntries: ExperienceEntry[] = [
     ],
     technologies: ['React', 'TypeScript', 'Node.js', 'Express', 'PHP', 'MySQL'],
     color: 'cyan',
-    certificateUrl: undefined,
+    certificateImage: certicodeCertificate,
     certificateLabel: 'View OJT Certificate',
+    certificateAlt: 'Certicode certificate of completion for Sydney Santos',
   },
 ]
 
 export function Experience() {
+  const [selectedExperience, setSelectedExperience] = useState<ExperienceEntry | null>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const lastTriggerRef = useRef<HTMLElement | null>(null)
+
+  const openCertificate = (entry: ExperienceEntry) => {
+    lastTriggerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    setSelectedExperience(entry)
+  }
+
+  const closeCertificate = () => {
+    setSelectedExperience(null)
+    requestAnimationFrame(() => lastTriggerRef.current?.focus())
+  }
+
+  useEffect(() => {
+    if (!selectedExperience) return
+
+    const previousOverflow = document.body.style.overflow
+    const previousScrollY = window.scrollY
+    document.body.style.overflow = 'hidden'
+    requestAnimationFrame(() => closeButtonRef.current?.focus())
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') closeCertificate()
+      if (event.key === 'Tab') {
+        event.preventDefault()
+        closeButtonRef.current?.focus()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.scrollTo(0, previousScrollY)
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [selectedExperience])
+
+  const certificateModal = selectedExperience && selectedExperience.certificateImage && createPortal(
+    <div
+      className="experience-certificate-modal-backdrop"
+      onMouseDown={(event) => { if (event.target === event.currentTarget) closeCertificate() }}
+    >
+      <div
+        className="experience-certificate-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={`experience-certificate-modal-title-${selectedExperience.company}`}
+      >
+        <header className="experience-certificate-modal-header">
+          <div>
+            <span>CERTIFICATE // {selectedExperience.company.toUpperCase()}</span>
+            <h2 id={`experience-certificate-modal-title-${selectedExperience.company}`}>{selectedExperience.certificateLabel}</h2>
+            <p>{selectedExperience.role}</p>
+          </div>
+          <button ref={closeButtonRef} type="button" onClick={closeCertificate} aria-label="Close experience certificate viewer">
+            <span>CLOSE</span><Icon name="close" />
+          </button>
+        </header>
+        <div className="experience-certificate-modal-image">
+          <img src={selectedExperience.certificateImage} alt={selectedExperience.certificateAlt} />
+        </div>
+      </div>
+    </div>,
+    document.body,
+  )
+
   return (
     <section className="experience-section page-container" id="experience" aria-labelledby="experience-title" data-reveal>
       <header className="experience-header">
@@ -63,10 +134,10 @@ export function Experience() {
               <ul className="experience-technologies" aria-label={`${entry.company} technologies`}>
                 {entry.technologies.map((technology) => <li key={technology}>{technology}</li>)}
               </ul>
-              {entry.certificateUrl ? (
-                <a className="experience-certificate" href={entry.certificateUrl} target="_blank" rel="noopener noreferrer">
+              {entry.certificateImage ? (
+                <button className="experience-certificate" type="button" onClick={() => openCertificate(entry)}>
                   <Icon name="file" />{entry.certificateLabel}<Icon name="arrow-up-right" />
-                </a>
+                </button>
               ) : (
                 <button className="experience-certificate experience-certificate--pending" type="button" disabled title="Certificate link coming soon">
                   <Icon name="file" />{entry.certificateLabel}<Icon name="arrow-up-right" />
@@ -76,6 +147,7 @@ export function Experience() {
           </article>
         ))}
       </div>
+      {certificateModal}
     </section>
   )
 }

@@ -228,7 +228,11 @@
   .certificates-header { flex-direction: column; gap: 17px; }
   .certificates-grid { grid-template-columns: 1fr; }
   .certificate-modal-backdrop { padding: 12px; }
-  .certificate-modal { box-shadow: 6px 6px 0 #ffe600; }
+  .certificate-modal {
+    width: 100%;
+    max-width: 95vw;
+    box-shadow: 6px 6px 0 #ffe600;
+  }
   .certificate-modal-header { gap: 12px; }
   .certificate-modal-header button { min-width: 44px; width: 44px; padding: 0; }
   .certificate-modal-header button span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
