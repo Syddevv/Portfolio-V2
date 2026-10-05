@@ -39,7 +39,6 @@ function AssistantHeader({ closeButtonRef, onReset, onClose }: AssistantHeaderPr
 function AssistantMessage({ message }: { message: ChatMessage }) {
   return (
     <article className={`assistant-message assistant-message--${message.role}`}>
-      <p>01 / HELLO</p>
       <span>{message.content}</span>
     </article>
   )
