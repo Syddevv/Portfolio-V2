@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { createPortal } from 'react-dom'
 import { Icon } from './Icons'
 import webDevelopmentCertificate from '../assets/web-development-rank-6.png'
 import miniHackathonCertificate from '../assets/mini-hackathon-third-place.png'
@@ -108,6 +109,7 @@ export function Certificates() {
     if (!selectedCertificate) return
 
     const previousOverflow = document.body.style.overflow
+    const previousScrollY = window.scrollY
     document.body.style.overflow = 'hidden'
     requestAnimationFrame(() => closeButtonRef.current?.focus())
 
@@ -122,9 +124,31 @@ export function Certificates() {
     window.addEventListener('keydown', handleKeyDown)
     return () => {
       document.body.style.overflow = previousOverflow
+      window.scrollTo(0, previousScrollY)
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [selectedCertificate])
+
+  const certificateModal = selectedCertificate && createPortal(
+    <div className="certificate-modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) closeCertificate() }}>
+      <div className="certificate-modal" role="dialog" aria-modal="true" aria-labelledby={`certificate-modal-title-${selectedCertificate.id}`}>
+        <header className="certificate-modal-header">
+          <div>
+            <span>CERTIFICATE // {selectedCertificate.id}</span>
+            <h2 id={`certificate-modal-title-${selectedCertificate.id}`}>{selectedCertificate.title}</h2>
+            <p>{selectedCertificate.issuer}</p>
+          </div>
+          <button ref={closeButtonRef} type="button" onClick={closeCertificate} aria-label="Close certificate viewer">
+            <span>CLOSE</span><Icon name="close" />
+          </button>
+        </header>
+        <div className="certificate-modal-image" onMouseDown={(event) => { if (event.target === event.currentTarget) closeCertificate() }}>
+          <img src={selectedCertificate.image} alt={selectedCertificate.alt} />
+        </div>
+      </div>
+    </div>,
+    document.body,
+  )
 
   return (
     <section className="certificates-section page-container" aria-labelledby="certificates-title" data-reveal>
@@ -143,26 +167,7 @@ export function Certificates() {
           ))}
         </div>
       </div>
-
-      {selectedCertificate && (
-        <div className="certificate-modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) closeCertificate() }}>
-          <div className="certificate-modal" role="dialog" aria-modal="true" aria-labelledby={`certificate-modal-title-${selectedCertificate.id}`}>
-            <header className="certificate-modal-header">
-              <div>
-                <span>CERTIFICATE // {selectedCertificate.id}</span>
-                <h2 id={`certificate-modal-title-${selectedCertificate.id}`}>{selectedCertificate.title}</h2>
-                <p>{selectedCertificate.issuer}</p>
-              </div>
-              <button ref={closeButtonRef} type="button" onClick={closeCertificate} aria-label="Close certificate viewer">
-                <span>CLOSE</span><Icon name="close" />
-              </button>
-            </header>
-            <div className="certificate-modal-image" onMouseDown={(event) => { if (event.target === event.currentTarget) closeCertificate() }}>
-              <img src={selectedCertificate.image} alt={selectedCertificate.alt} />
-            </div>
-          </div>
-        </div>
-      )}
+      {certificateModal}
     </section>
   )
 }
