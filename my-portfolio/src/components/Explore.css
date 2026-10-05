@@ -79,6 +79,8 @@
 .hero-button-secondary:not(:disabled):hover svg { transform: translateX(3px); }
 .hero-button-primary { background: #ffe600; }
 .hero-button-secondary { background: #fff; }
+.hero-button-download { background: #111; color: #fff; }
+.hero-button-download:hover { background: #242424; }
 
 .hero-scroll { display: inline-flex; align-items: center; gap: 10px; margin-top: clamp(30px, 3vw, 56px); color: #161616; font: 700 clamp(10px, .67vw, 13px)/1 var(--font-mono); letter-spacing: .6px; cursor: pointer; animation: hero-scroll-float 2.8s ease-in-out infinite; }
 .hero-scroll-mouse { display: flex; justify-content: center; width: 22px; height: 36px; padding-top: 6px; overflow: hidden; border: 2px solid #111; border-radius: 12px; background: #fff; transition: border-color var(--motion-fast) steps(2, end), box-shadow var(--motion-fast) steps(2, end); }

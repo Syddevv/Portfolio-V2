@@ -1,48 +1,67 @@
+import { useRef, useState } from 'react'
 import { Icon } from './Icons'
 import avatar from '../assets/syd-avatar.jpg'
+import { ResumeModal } from './ResumeModal'
 import './Explore.css'
 
 export function Explore() {
+  const [resumeOpen, setResumeOpen] = useState(false)
+  const resumeButtonRef = useRef<HTMLButtonElement>(null)
+
   return (
-    <section className="explore-hero page-container" id="explore" aria-labelledby="explore-title">
-      <div className="explore-copy">
-        <p className="hero-eyebrow"><span className="hero-eyebrow-light" />FULL-STACK WEB DEVELOPER</p>
+    <>
+      <section className="explore-hero page-container" id="explore" aria-labelledby="explore-title">
+        <div className="explore-copy">
+          <p className="hero-eyebrow"><span className="hero-eyebrow-light" />FULL-STACK WEB DEVELOPER</p>
 
-        <h1 className="hero-headline" id="explore-title" aria-label="Building scalable digital solutions.">
-          <span>Building</span>
-          <span className="hero-headline-outline">scalable</span>
-          <span>digital</span>
-          <span>solutions<span className="hero-headline-period" aria-hidden="true" /></span>
-        </h1>
+          <h1 className="hero-headline" id="explore-title" aria-label="Building scalable digital solutions.">
+            <span>Building</span>
+            <span className="hero-headline-outline">scalable</span>
+            <span>digital</span>
+            <span>solutions<span className="hero-headline-period" aria-hidden="true" /></span>
+          </h1>
 
-        <p className="hero-description">
-          I build modern web applications from frontend to backend, turning ideas into responsive, reliable, and practical digital solutions.
-        </p>
+          <p className="hero-description">
+            I build modern web applications from frontend to backend, turning ideas into responsive, reliable, and practical digital solutions.
+          </p>
 
-        <div className="hero-actions">
-          <a className="hero-button hero-button-primary" href="#projects">My projects <Icon name="folder" /></a>
-          <button className="hero-button hero-button-secondary" type="button" disabled title="Resume is not available yet">View resume <Icon name="arrow-right" /></button>
-        </div>
-
-        <a className="hero-scroll" href="#about" aria-label="Scroll to About section">
-          <span className="hero-scroll-mouse"><span className="hero-scroll-wheel" /></span>
-          <span className="hero-scroll-label">SCROLL DOWN</span>
-        </a>
-      </div>
-
-      <div className="hero-visual" aria-label="Portrait of Sydney Santos">
-        <div className="portrait-frame">
-          <div className="portrait-inner">
-            <img src={avatar} alt="Sydney Santos taking a mirror portrait" />
-            <div className="portrait-caption"><span>SYDNEY_PORTRAIT_RAW.JPG</span><span>100% SPEC</span></div>
+          <div className="hero-actions">
+            <a className="hero-button hero-button-primary" href="#projects">My projects <Icon name="folder" /></a>
+            <button
+              ref={resumeButtonRef}
+              className="hero-button hero-button-secondary"
+              type="button"
+              onClick={() => setResumeOpen(true)}
+            >
+              View resume <Icon name="arrow-up-right" />
+            </button>
           </div>
+
+          <a className="hero-scroll" href="#about" aria-label="Scroll to About section">
+            <span className="hero-scroll-mouse"><span className="hero-scroll-wheel" /></span>
+            <span className="hero-scroll-label">SCROLL DOWN</span>
+          </a>
         </div>
-        <span className="portrait-sticker portrait-sticker-css">CSS</span>
-        <span className="portrait-sticker portrait-sticker-ux">UX</span>
-        <span className="portrait-sticker portrait-sticker-next">NEXT.JS</span>
-        <span className="portrait-sticker portrait-sticker-seo">SEO</span>
-        <span className="portrait-sticker portrait-sticker-html">HTML</span>
-      </div>
-    </section>
+
+        <div className="hero-visual" aria-label="Portrait of Sydney Santos">
+          <div className="portrait-frame">
+            <div className="portrait-inner">
+              <img src={avatar} alt="Sydney Santos taking a mirror portrait" />
+              <div className="portrait-caption"><span>SYDNEY_PORTRAIT_RAW.JPG</span><span>100% SPEC</span></div>
+            </div>
+          </div>
+          <span className="portrait-sticker portrait-sticker-css">CSS</span>
+          <span className="portrait-sticker portrait-sticker-ux">UX</span>
+          <span className="portrait-sticker portrait-sticker-next">NEXT.JS</span>
+          <span className="portrait-sticker portrait-sticker-seo">SEO</span>
+          <span className="portrait-sticker portrait-sticker-html">HTML</span>
+        </div>
+      </section>
+      <ResumeModal
+        open={resumeOpen}
+        onClose={() => setResumeOpen(false)}
+        triggerRef={resumeButtonRef}
+      />
+    </>
   )
 }

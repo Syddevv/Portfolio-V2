@@ -1,6 +1,6 @@
 import type { ReactNode, SVGProps } from 'react'
 
-export type IconName = 'terminal' | 'user' | 'code' | 'layers' | 'file' | 'mail' | 'search' | 'theme' | 'clock' | 'share' | 'menu' | 'close' | 'folder' | 'arrow-right' | 'arrow-up-right' | 'briefcase' | 'spark' | 'lock' | 'robot' | 'reset' | 'send'
+export type IconName = 'terminal' | 'user' | 'code' | 'layers' | 'file' | 'mail' | 'search' | 'theme' | 'clock' | 'share' | 'menu' | 'close' | 'folder' | 'download' | 'arrow-right' | 'arrow-up-right' | 'briefcase' | 'spark' | 'lock' | 'robot' | 'reset' | 'send'
 
 type IconProps = SVGProps<SVGSVGElement> & { name: IconName }
 
@@ -19,6 +19,7 @@ export function Icon({ name, ...props }: IconProps) {
     menu: <path d="M3 6h18M3 12h18M3 18h18" />,
     close: <path d="M4 4 20 20M20 4 4 20" />,
     folder: <path d="M2.5 5h7l2.3 2.5H21.5V19H2.5V5Z" />,
+    download: <path d="M12 3v12m-5-5 5 5 5-5M4 20h16" />,
     'arrow-right': <path d="M3 12h17m-7-7 7 7-7 7" />,
     'arrow-up-right': <path d="M5 19 19 5M8 5h11v11" />,
     briefcase: <><rect x="2.5" y="7" width="19" height="14" rx="1" /><path d="M8 7V4.5A1.5 1.5 0 0 1 9.5 3h5A1.5 1.5 0 0 1 16 4.5V7M2.5 13l9.5 3 9.5-3M10 14.5v3h4v-3" /></>,
