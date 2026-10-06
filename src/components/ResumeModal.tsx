@@ -18,14 +18,23 @@ export function ResumeModal({ open, onClose, triggerRef }: ResumeModalProps) {
 
   useEffect(() => {
     if (open) {
-      setMounted(true)
-      const frame = window.requestAnimationFrame(() => setActive(true))
-      return () => window.cancelAnimationFrame(frame)
+      let activeFrame = 0
+      const mountFrame = window.requestAnimationFrame(() => {
+        setMounted(true)
+        activeFrame = window.requestAnimationFrame(() => setActive(true))
+      })
+      return () => {
+        window.cancelAnimationFrame(mountFrame)
+        window.cancelAnimationFrame(activeFrame)
+      }
     }
 
-    setActive(false)
+    const frame = window.requestAnimationFrame(() => setActive(false))
     const timeout = window.setTimeout(() => setMounted(false), 220)
-    return () => window.clearTimeout(timeout)
+    return () => {
+      window.cancelAnimationFrame(frame)
+      window.clearTimeout(timeout)
+    }
   }, [open])
 
   useEffect(() => {
