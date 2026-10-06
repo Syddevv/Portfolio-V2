@@ -122,7 +122,6 @@
   box-shadow: 4px 4px 0 #000;
   font: 700 clamp(11px, .75vw, 14px)/1 var(--font-mono);
   text-transform: uppercase;
-  background: #ffe600;
   transition: transform var(--motion-fast) steps(2, end), box-shadow var(--motion-fast) steps(2, end);
 }
 .experience-certificate:not(:disabled):hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #000; }
@@ -136,84 +135,6 @@
   background: #ffe600;
 }
 .experience-certificate--pending:hover { transform: none; box-shadow: 4px 4px 0 #000; }
-
-.experience-certificate-modal-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: clamp(16px, 3vw, 48px);
-  background: rgb(0 0 0 / .82);
-  animation: experience-certificate-backdrop-in var(--motion-base) var(--ease-mechanical) both;
-}
-.experience-certificate-modal {
-  display: flex;
-  flex-direction: column;
-  width: min(1000px, 90vw);
-  max-height: 90vh;
-  max-height: 90dvh;
-  overflow: hidden;
-  border: 4px solid #000;
-  background: #f3f0e9;
-  box-shadow: 10px 10px 0 #ffe600;
-  animation: experience-certificate-modal-in var(--motion-base) var(--ease-mechanical) both;
-}
-.experience-certificate-modal-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 20px;
-  padding: clamp(14px, 1.5vw, 24px);
-  border-bottom: 4px solid #000;
-  background: #ffe600;
-  color: #111;
-}
-.experience-certificate-modal-header span { font: 700 10px/1 var(--font-mono); }
-.experience-certificate-modal-header h2 { margin: 8px 0 4px; font-size: clamp(20px, 2vw, 34px); line-height: 1; letter-spacing: -.04em; }
-.experience-certificate-modal-header p { margin: 0; font-size: clamp(12px, .85vw, 15px); }
-.experience-certificate-modal-header button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  min-width: 92px;
-  min-height: 42px;
-  padding: 7px 10px;
-  border: 3px solid #000;
-  background: #fcf8f8;
-  box-shadow: 4px 4px 0 #000;
-  font: 700 11px/1 var(--font-mono);
-  transition: transform var(--motion-fast) steps(2, end), box-shadow var(--motion-fast) steps(2, end);
-}
-.experience-certificate-modal-header button:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 #000; }
-.experience-certificate-modal-header button:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 #000; }
-.experience-certificate-modal-header button:focus-visible { outline: 3px solid #00f0ff; outline-offset: 4px; }
-.experience-certificate-modal-header button svg { width: 18px; height: 18px; }
-.experience-certificate-modal-image {
-  display: grid;
-  place-items: center;
-  flex: 1;
-  min-height: 0;
-  padding: clamp(12px, 2vw, 28px);
-  overflow: auto;
-  background: #242424;
-}
-.experience-certificate-modal-image img {
-  display: block;
-  max-width: 100%;
-  max-height: calc(90dvh - 150px);
-  object-fit: contain;
-}
-@keyframes experience-certificate-backdrop-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes experience-certificate-modal-in {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
 
 @keyframes experience-line-draw {
   from { transform: scaleY(0); }
@@ -259,25 +180,6 @@ html.motion-ready .experience-section.is-revealed .experience-row:last-child .ex
   .experience-date { align-self: center; padding-top: 0; }
   .experience-card { grid-column: 2; padding: 23px; }
   .experience-card h2 { font-size: clamp(28px, 8vw, 40px); }
-  .experience-certificate-modal-backdrop { padding: 12px; }
-  .experience-certificate-modal {
-    width: 100%;
-    max-width: 95vw;
-    box-shadow: 6px 6px 0 #ffe600;
-  }
-  .experience-certificate-modal-header { gap: 12px; }
-  .experience-certificate-modal-header button { min-width: 44px; width: 44px; padding: 0; }
-  .experience-certificate-modal-header button span {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-  }
-  .experience-certificate-modal-image img {
-    max-width: 95vw;
-    max-height: calc(90dvh - 170px);
-  }
 }
 @media (max-width: 390px) {
   .experience-section { padding-block-start: 44px; }
@@ -289,8 +191,7 @@ html.motion-ready .experience-section.is-revealed .experience-row:last-child .ex
   .experience-technologies li { padding-inline: 7px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .experience-certificate, .experience-certificate svg:last-child, .experience-certificate-modal-header button { transition: none; }
-  .experience-certificate-modal-backdrop, .experience-certificate-modal { animation: none; }
+  .experience-certificate, .experience-certificate svg:last-child { transition: none; }
   html.motion-ready .experience-section .experience-marker,
   html.motion-ready .experience-section .experience-date,
   html.motion-ready .experience-section .experience-card { opacity: 1; animation: none; }
