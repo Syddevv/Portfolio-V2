@@ -118,7 +118,7 @@
   margin-top: 25px;
   padding: 9px 12px;
   border: 2px solid #000;
-  background: #fcf8f8;
+  background: #ffe600;
   box-shadow: 4px 4px 0 #000;
   font: 700 clamp(11px, .75vw, 14px)/1 var(--font-mono);
   text-transform: uppercase;
@@ -135,6 +135,102 @@
   background: #ffe600;
 }
 .experience-certificate--pending:hover { transform: none; box-shadow: 4px 4px 0 #000; }
+
+.experience-certificate-modal-backdrop {
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(18px, 3vw, 48px);
+  background: rgb(0 0 0 / .82);
+  animation: experience-certificate-backdrop-in 180ms ease-out both;
+}
+.experience-certificate-modal {
+  display: flex;
+  flex-direction: column;
+  width: min(1000px, 90vw);
+  max-height: 90dvh;
+  border: 4px solid #000;
+  background: #f7f3ed;
+  box-shadow: 10px 10px 0 #ffe600;
+  animation: experience-certificate-modal-in 220ms var(--ease-mechanical) both;
+}
+.experience-certificate-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: clamp(16px, 2vw, 26px);
+  border-bottom: 4px solid #000;
+  background: #ffe600;
+}
+.experience-certificate-modal-header span,
+.experience-certificate-modal-header p {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+}
+.experience-certificate-modal-header span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+}
+.experience-certificate-modal-header h2 {
+  margin: 7px 0 4px;
+  font-size: clamp(20px, 2.2vw, 34px);
+  line-height: 1;
+  letter-spacing: -.035em;
+}
+.experience-certificate-modal-header p {
+  margin: 0;
+  font-size: 11px;
+}
+.experience-certificate-modal-header button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 2px solid #000;
+  background: #fcf8f8;
+  box-shadow: 3px 3px 0 #000;
+  font: 700 11px/1 var(--font-mono);
+  transition: transform var(--motion-fast) steps(2, end), box-shadow var(--motion-fast) steps(2, end);
+}
+.experience-certificate-modal-header button:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 #000; }
+.experience-certificate-modal-header button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #000; }
+.experience-certificate-modal-header button:focus-visible { outline: 3px solid #ff5b83; outline-offset: 4px; }
+.experience-certificate-modal-header button svg { width: 18px; height: 18px; }
+.experience-certificate-modal-image {
+  display: grid;
+  min-height: 0;
+  place-items: center;
+  overflow: auto;
+  padding: clamp(12px, 2vw, 24px);
+  background-color: #242424;
+  background-image: linear-gradient(rgb(255 255 255 / .055) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / .055) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.experience-certificate-modal-image img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(90dvh - 150px);
+  border: 3px solid #000;
+  object-fit: contain;
+  background: #fff;
+}
+
+@keyframes experience-certificate-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes experience-certificate-modal-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 @keyframes experience-line-draw {
   from { transform: scaleY(0); }
@@ -180,6 +276,24 @@ html.motion-ready .experience-section.is-revealed .experience-row:last-child .ex
   .experience-date { align-self: center; padding-top: 0; }
   .experience-card { grid-column: 2; padding: 23px; }
   .experience-card h2 { font-size: clamp(28px, 8vw, 40px); }
+  .experience-certificate-modal-backdrop { padding: 12px; }
+  .experience-certificate-modal {
+    width: 100%;
+    max-width: 95vw;
+    max-height: 92dvh;
+    box-shadow: 6px 6px 0 #ffe600;
+  }
+  .experience-certificate-modal-header { gap: 12px; padding: 14px; }
+  .experience-certificate-modal-header button { width: 44px; min-width: 44px; padding: 0; }
+  .experience-certificate-modal-header button span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .experience-certificate-modal-image img { max-height: calc(92dvh - 150px); }
 }
 @media (max-width: 390px) {
   .experience-section { padding-block-start: 44px; }
@@ -191,7 +305,11 @@ html.motion-ready .experience-section.is-revealed .experience-row:last-child .ex
   .experience-technologies li { padding-inline: 7px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .experience-certificate, .experience-certificate svg:last-child { transition: none; }
+  .experience-certificate,
+  .experience-certificate svg:last-child,
+  .experience-certificate-modal-header button { transition: none; }
+  .experience-certificate-modal-backdrop,
+  .experience-certificate-modal { animation: none; }
   html.motion-ready .experience-section .experience-marker,
   html.motion-ready .experience-section .experience-date,
   html.motion-ready .experience-section .experience-card { opacity: 1; animation: none; }

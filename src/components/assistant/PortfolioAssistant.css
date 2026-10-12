@@ -76,13 +76,15 @@ html.motion-ready .assistant-trigger:not(.assistant-trigger--returning) { animat
 .assistant-header-actions button:focus-visible { outline: 3px solid #00f0ff; outline-offset: 2px; }
 .assistant-header-actions svg { width: 18px; height: 18px; }
 
-.assistant-conversation { min-height: 0; flex: 1; overflow-y: auto; padding: clamp(18px, 2vw, 28px); }
-.assistant-message { width: min(100%, 310px); padding: 14px 13px 16px; border: 3px solid #000; background: #fff; box-shadow: 5px 5px 0 #000; animation: assistant-message-in var(--motion-base) 80ms var(--ease-mechanical) both; }
+.assistant-conversation { display: flex; min-height: 0; flex: 1; flex-direction: column; align-items: flex-start; gap: 16px; overflow-y: auto; padding: clamp(18px, 2vw, 28px); }
+.assistant-message { width: fit-content; max-width: min(88%, 310px); padding: 14px 13px 16px; border: 3px solid #000; background: #fff; box-shadow: 5px 5px 0 #000; animation: assistant-message-in var(--motion-base) 80ms var(--ease-mechanical) both; }
+.assistant-message--assistant { align-self: flex-start; margin-right: auto; }
+.assistant-message--user { align-self: flex-end; margin-left: auto; background: #00e7ed; box-shadow: -5px 5px 0 #000; }
 @keyframes assistant-message-in {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.assistant-message > span { display: block; font-size: 14px; line-height: 1.43; }
+.assistant-message > span { display: block; overflow-wrap: anywhere; white-space: pre-wrap; font-size: 14px; line-height: 1.43; }
 
 .assistant-composer { padding: 13px 12px 12px; border-top: 4px solid #000; background: #f3f0e9; }
 .assistant-input-row { display: grid; grid-template-columns: minmax(0, 1fr) 48px; gap: 9px; }
@@ -108,7 +110,7 @@ html.motion-ready .assistant-trigger:not(.assistant-trigger--returning) { animat
     box-shadow: 6px 6px 0 #000;
   }
   .assistant-conversation { padding: 18px; }
-  .assistant-message { width: min(100%, 330px); }
+  .assistant-message { max-width: 90%; }
 }
 @media (max-width: 380px) {
   .assistant-panel { inset-inline: 10px; bottom: 18px; width: auto; }
