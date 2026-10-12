@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "tsx --test api/_lib/chat-core.test.ts"
+    "test": "tsx --test api/_lib/chat-core.test.ts api/_lib/contact-core.test.ts"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
